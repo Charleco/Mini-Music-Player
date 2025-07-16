@@ -44,6 +44,8 @@ anti_aliasing = false
 [resource]
 BackgroundPanel/base_type = &"PanelContainer"
 BackgroundPanel/styles/panel = SubResource("StyleBoxFlat_x127s")
+ErrorLabel/base_type = &"Label"
+ErrorLabel/colors/font_color = Color(1, 0, 0, 1)
 HeaderPanel/base_type = &"PanelContainer"
 HeaderPanel/styles/panel = SubResource("StyleBoxFlat_biaja")
 LabelPanelContainer/base_type = &"PanelContainer"

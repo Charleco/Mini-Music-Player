@@ -1,0 +1,31 @@
+using Godot;
+using System;
+
+public partial class UiManager : Node
+{
+        [Export]
+        PackedScene _notificationScene;
+        [Export]
+        VBoxContainer _notificationContainer;
+        public override void _Ready()
+        {
+            SignalBus.Instance.SendNotification += (type,message,duration) => SendNotification(type,message,duration);
+        }
+        public override void _Input(InputEvent @event)
+        {
+            
+            base._Input(@event);
+            if(@event is InputEventMouseMotion mouseMotion && Input.IsMouseButtonPressed(MouseButton.Right))
+            {
+                GetTree().GetRoot().Position += (Vector2I)mouseMotion.Relative;
+            }
+            
+        }
+        private void SendNotification(int type, string message, float duration)
+        {
+            var notification = _notificationScene.Instantiate() as Notification;
+            _notificationContainer.AddChild(notification);
+            _notificationContainer.MoveChild(notification,0);
+            notification.SetParams(type,message,duration);
+        }
+}

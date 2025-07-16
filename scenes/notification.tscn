@@ -1,0 +1,70 @@
+[gd_scene load_steps=6 format=3 uid="uid://dna7vjniw6cpx"]
+
+[ext_resource type="Theme" uid="uid://35346j02g11j" path="res://resources/main_theme.tres" id="1_a8rcd"]
+[ext_resource type="Script" uid="uid://duoktvg3oy002" path="res://scripts/Notification.cs" id="2_j6hwb"]
+
+[sub_resource type="Animation" id="Animation_a8rcd"]
+resource_name = "ScaleUp"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_j6hwb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j6hwb"]
+_data = {
+&"RESET": SubResource("Animation_j6hwb"),
+&"ScaleUp": SubResource("Animation_a8rcd")
+}
+
+[node name="Notification" type="MarginContainer"]
+texture_filter = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+scale = Vector2(1e-05, 1e-05)
+size_flags_horizontal = 8
+theme = ExtResource("1_a8rcd")
+script = ExtResource("2_j6hwb")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+theme_type_variation = &"LabelPanelContainer"
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+text = "test"
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_j6hwb")
+}
