@@ -8,7 +8,7 @@ public partial class Notification : MarginContainer
     private AnimationPlayer _player;
     public override void _Ready()
     {
-        _timer = GetNode<Timer>("PanelContainer/MarginContainer/Timer");
+        _timer = GetNode<Timer>("Timer");
         _label = GetNode<Label>("PanelContainer/MarginContainer/Label");
         _player = GetNode<AnimationPlayer>("AnimationPlayer");
 

@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using static SignalBus;
 
 public partial class UiManager : Node
 {
@@ -9,7 +10,7 @@ public partial class UiManager : Node
         VBoxContainer _notificationContainer;
         public override void _Ready()
         {
-            SignalBus.Instance.SendNotification += (type,message,duration) => SendNotification(type,message,duration);
+            SigBus.SendNotification += (type,message,duration) => SendNotification(type,message,duration);
         }
         public override void _Input(InputEvent @event)
         {
