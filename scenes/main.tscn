@@ -1,9 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://bbp3ql0w1h2xw"]
+[gd_scene load_steps=13 format=3 uid="uid://bbp3ql0w1h2xw"]
 
 [ext_resource type="Theme" uid="uid://35346j02g11j" path="res://resources/main_theme.tres" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://dts5ls7atfqlx" path="res://scripts/UiManager.cs" id="2_0wfyh"]
 [ext_resource type="Script" uid="uid://ciu8he6q52xuo" path="res://scripts/SignalBus.cs" id="2_sugp2"]
+[ext_resource type="Script" uid="uid://dgho81j7ejd4q" path="res://scripts/FileManager.cs" id="3_jyhfs"]
+[ext_resource type="Script" uid="uid://2akr5wqccfs4" path="res://scripts/AudioManager.cs" id="3_tefeu"]
 [ext_resource type="PackedScene" uid="uid://dna7vjniw6cpx" path="res://scenes/notification.tscn" id="5_tbgi4"]
+[ext_resource type="Texture2D" uid="uid://ck2t2yg36by4e" path="res://assets/icons/DirectoryIcon.png" id="7_o6xl0"]
+[ext_resource type="Texture2D" uid="uid://b7mgvkqrduarm" path="res://assets/icons/PreferencesIcon.png" id="8_tipki"]
+[ext_resource type="Texture2D" uid="uid://dxrqor5ysfke6" path="res://assets/icons/PinIcon.png" id="9_85g3d"]
+[ext_resource type="Texture2D" uid="uid://dqyhqa2hfcgbx" path="res://assets/icons/CloseIcon.png" id="10_choun"]
+[ext_resource type="Texture2D" uid="uid://brgna28qr6rmg" path="res://assets/icons/MinimizeIcon.png" id="10_ya4ey"]
+[ext_resource type="Texture2D" uid="uid://bkwqmhfhxmmqg" path="res://assets/icons/VolumeIcon.png" id="12_eb6dy"]
 
 [node name="Main" type="Control"]
 texture_filter = 1
@@ -24,6 +32,7 @@ script = ExtResource("2_sugp2")
 script = ExtResource("2_0wfyh")
 _notificationScene = ExtResource("5_tbgi4")
 _notificationContainer = NodePath("../NotificationCanvasLayer/MarginContainer/HBoxContainer/HBoxContainer4/NotificationVBoxContainer")
+_musicListContainer = NodePath("../PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/MusicListPanelContainer")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -53,40 +62,55 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
+[node name="DirectoryButton" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 4
-text = "Directory"
+size_flags_horizontal = 3
+icon = ExtResource("7_o6xl0")
+icon_alignment = 1
+expand_icon = true
 
 [node name="Button2" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 text = "Playlist"
 
-[node name="Button3" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
+[node name="PreferencesButton" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 4
-text = "Preferences"
+size_flags_horizontal = 3
+icon = ExtResource("8_tipki")
+icon_alignment = 1
+expand_icon = true
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 
-[node name="Button4" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2"]
+[node name="PinButton" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2"]
 layout_mode = 2
-size_flags_vertical = 4
-text = "Pin"
+size_flags_horizontal = 3
+icon = ExtResource("9_85g3d")
+icon_alignment = 1
+expand_icon = true
 
-[node name="Button" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2"]
+[node name="MinimizeButton" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2"]
 layout_mode = 2
-size_flags_vertical = 4
-text = "Minimize"
+size_flags_horizontal = 3
+icon = ExtResource("10_ya4ey")
+icon_alignment = 1
+expand_icon = true
 
-[node name="Button2" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2"]
+[node name="CloseButton" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2"]
 layout_mode = 2
-size_flags_vertical = 4
-text = "Exit"
+size_flags_horizontal = 3
+theme_type_variation = &"ExitButton"
+icon = ExtResource("10_choun")
+icon_alignment = 1
+expand_icon = true
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -186,10 +210,11 @@ layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="Button" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
+[node name="MuteButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 4
-text = "Mute"
+icon = ExtResource("12_eb6dy")
+icon_alignment = 1
 
 [node name="CenterContainer" type="CenterContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
@@ -258,11 +283,16 @@ text = "time 2"
 
 [node name="MusicListPanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer"]
 visible = false
+custom_minimum_size = Vector2(580, 200)
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 0
 theme_type_variation = &"LabelPanelContainer"
 
-[node name="MusicListMarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/MusicListPanelContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/MusicListPanelContainer"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="MusicListMarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/MusicListPanelContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -311,3 +341,6 @@ mouse_filter = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2/PinButton" to="UIManager" method="PinButtonPressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2/MinimizeButton" to="UIManager" method="MinimizeButtonPressed"]

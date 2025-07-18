@@ -1,10 +1,13 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://35346j02g11j"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://35346j02g11j"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x127s"]
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qjhx0"]
+bg_color = Color(1, 0, 0.160784, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_biaja"]
 bg_color = Color(0.214703, 0.214703, 0.214702, 1)
@@ -46,6 +49,8 @@ BackgroundPanel/base_type = &"PanelContainer"
 BackgroundPanel/styles/panel = SubResource("StyleBoxFlat_x127s")
 ErrorLabel/base_type = &"Label"
 ErrorLabel/colors/font_color = Color(1, 0, 0, 1)
+ExitButton/base_type = &"Button"
+ExitButton/styles/hover = SubResource("StyleBoxFlat_qjhx0")
 HeaderPanel/base_type = &"PanelContainer"
 HeaderPanel/styles/panel = SubResource("StyleBoxFlat_biaja")
 LabelPanelContainer/base_type = &"PanelContainer"
