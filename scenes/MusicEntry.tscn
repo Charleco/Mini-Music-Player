@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfwp3xkphi03d"]
+
+[ext_resource type="Script" uid="uid://8m4fe0c6eyma" path="res://scripts/MusicEntry.cs" id="1_ogyyh"]
+
+[node name="MusicEntry" type="HBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 13.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+alignment = 1
+script = ExtResource("1_ogyyh")
+metadata/_edit_use_anchors_ = true
+
+[node name="SongNameLabel" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "test"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ArtistLabel" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "test"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AlbumLabel" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "test"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -8,7 +8,7 @@ public partial class MusicResource : Resource
     [Export]
     public string Name { get; set; }
     [Export]
-    public string Author { get; set; }
+    public string Artist { get; set; }
     [Export]
     public string Album { get; set; }
     [Export]
