@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bbp3ql0w1h2xw"]
+[gd_scene load_steps=15 format=3 uid="uid://bbp3ql0w1h2xw"]
 
 [ext_resource type="Theme" uid="uid://35346j02g11j" path="res://resources/main_theme.tres" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://dts5ls7atfqlx" path="res://scripts/UiManager.cs" id="2_0wfyh"]
@@ -6,12 +6,16 @@
 [ext_resource type="Script" uid="uid://dgho81j7ejd4q" path="res://scripts/FileManager.cs" id="3_jyhfs"]
 [ext_resource type="Script" uid="uid://2akr5wqccfs4" path="res://scripts/AudioManager.cs" id="3_tefeu"]
 [ext_resource type="PackedScene" uid="uid://dna7vjniw6cpx" path="res://scenes/notification.tscn" id="5_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://dfwp3xkphi03d" path="res://scenes/MusicEntry.tscn" id="6_trceg"]
 [ext_resource type="Texture2D" uid="uid://ck2t2yg36by4e" path="res://assets/icons/DirectoryIcon.png" id="7_o6xl0"]
 [ext_resource type="Texture2D" uid="uid://b7mgvkqrduarm" path="res://assets/icons/PreferencesIcon.png" id="8_tipki"]
 [ext_resource type="Texture2D" uid="uid://dxrqor5ysfke6" path="res://assets/icons/PinIcon.png" id="9_85g3d"]
 [ext_resource type="Texture2D" uid="uid://dqyhqa2hfcgbx" path="res://assets/icons/CloseIcon.png" id="10_choun"]
 [ext_resource type="Texture2D" uid="uid://brgna28qr6rmg" path="res://assets/icons/MinimizeIcon.png" id="10_ya4ey"]
 [ext_resource type="Texture2D" uid="uid://bkwqmhfhxmmqg" path="res://assets/icons/VolumeIcon.png" id="12_eb6dy"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_eb6dy"]
+shadow_size = 0
 
 [node name="Main" type="Control"]
 texture_filter = 1
@@ -28,11 +32,36 @@ theme = ExtResource("1_o5qli")
 [node name="SignalBus" type="Node" parent="."]
 script = ExtResource("2_sugp2")
 
-[node name="UIManager" type="Node" parent="." node_paths=PackedStringArray("_notificationContainer")]
+[node name="AudioManager" type="Node" parent="."]
+script = ExtResource("3_tefeu")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AudioManager"]
+
+[node name="FileManager" type="Node" parent="." node_paths=PackedStringArray("UiManager")]
+script = ExtResource("3_jyhfs")
+UiManager = NodePath("../UIManager")
+
+[node name="FileDialog" type="FileDialog" parent="FileManager"]
+title = "Open a Directory"
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+
+[node name="UIManager" type="Node" parent="." node_paths=PackedStringArray("Player", "_notificationContainer", "_musicListContainer", "_volumeSlider", "_volumeButton", "_durationSlider", "_currentSongTimeLabel", "_songTimeLabel", "_songNameLabel", "_artistLabel", "_albumLabel")]
 script = ExtResource("2_0wfyh")
+Player = NodePath("../AudioManager/AudioStreamPlayer")
+_musicEntryScene = ExtResource("6_trceg")
 _notificationScene = ExtResource("5_tbgi4")
 _notificationContainer = NodePath("../NotificationCanvasLayer/MarginContainer/HBoxContainer/HBoxContainer4/NotificationVBoxContainer")
-_musicListContainer = NodePath("../PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/MusicListPanelContainer")
+_musicListContainer = NodePath("../PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/MusicListPanelContainer/ScrollContainer/VBoxContainer")
+_volumeSlider = NodePath("../PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/MarginContainer/VolumeSlider")
+_volumeButton = NodePath("../PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2/MuteButton")
+_durationSlider = NodePath("../PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/CenterContainer/MarginContainer/DurationSlider")
+_currentSongTimeLabel = NodePath("../PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer/PanelContainer/Label")
+_songTimeLabel = NodePath("../PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2/PanelContainer/Label")
+_songNameLabel = NodePath("../PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/HBoxContainer/HBoxContainer/PanelContainer/Label")
+_artistLabel = NodePath("../PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/Label")
+_albumLabel = NodePath("../PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/HBoxContainer/HBoxContainer/VBoxContainer/PanelContainer2/Label2")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -144,6 +173,7 @@ theme_type_variation = &"LabelPanelContainer"
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Song Name"
+label_settings = SubResource("LabelSettings_eb6dy")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -223,11 +253,11 @@ size_flags_horizontal = 3
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer"]
 layout_mode = 2
 
-[node name="VolumeBar" type="HScrollBar" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/MarginContainer"]
+[node name="VolumeSlider" type="HSlider" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer2/CenterContainer/MarginContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
+max_value = 1.0
+step = 0.005
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -247,9 +277,11 @@ size_flags_stretch_ratio = 0.5
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/CenterContainer"]
 layout_mode = 2
 
-[node name="HScrollBar" type="HScrollBar" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/CenterContainer/MarginContainer"]
-custom_minimum_size = Vector2(560, 0)
+[node name="DurationSlider" type="HSlider" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/CenterContainer/MarginContainer"]
+custom_minimum_size = Vector2(550, 0)
 layout_mode = 2
+size_flags_vertical = 1
+scrollable = false
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -282,7 +314,6 @@ layout_mode = 2
 text = "time 2"
 
 [node name="MusicListPanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer"]
-visible = false
 custom_minimum_size = Vector2(580, 200)
 layout_mode = 2
 size_flags_vertical = 0
@@ -292,8 +323,9 @@ theme_type_variation = &"LabelPanelContainer"
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="MusicListMarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/MusicListPanelContainer/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/MusicListPanelContainer/ScrollContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="NotificationCanvasLayer" type="CanvasLayer" parent="."]
@@ -342,5 +374,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer/DirectoryButton" to="FileManager" method="ShowFileDialog"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer/Button2" to="UIManager" method="ShowHideMusicList"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2/PinButton" to="UIManager" method="PinButtonPressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2/MinimizeButton" to="UIManager" method="MinimizeButtonPressed"]

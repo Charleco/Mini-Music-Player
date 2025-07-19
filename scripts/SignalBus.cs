@@ -10,6 +10,8 @@ public partial class SignalBus : Node
     public delegate void NewDirectorySelectedEventHandler(string directory);
     [Signal]
     public delegate void MusicEntrySelectedEventHandler(MusicResource resource);
+    [Signal]
+    public delegate void SongChangedEventHandler(MusicResource resource);
     public override void _Ready()
     {
         base._Ready();
