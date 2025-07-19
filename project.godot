@@ -33,6 +33,11 @@ window/per_pixel_transparency/allowed=true
 
 project/assembly_name="Mini Music Player"
 
+[gui]
+
+theme/custom="uid://35346j02g11j"
+theme/custom_font="uid://b36v10vyocekh"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

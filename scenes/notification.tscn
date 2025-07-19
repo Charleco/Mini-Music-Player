@@ -48,6 +48,7 @@ anchor_right = 1.0
 grow_horizontal = 0
 scale = Vector2(1e-05, 1e-05)
 size_flags_horizontal = 8
+mouse_filter = 0
 theme = ExtResource("1_a8rcd")
 script = ExtResource("2_j6hwb")
 
@@ -61,6 +62,8 @@ layout_mode = 2
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer"]
 layout_mode = 2
 text = "test"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Timer" type="Timer" parent="."]
 

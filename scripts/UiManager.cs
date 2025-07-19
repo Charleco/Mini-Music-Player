@@ -29,4 +29,22 @@ public partial class UiManager : Node
             _notificationContainer.MoveChild(notification,0);
             notification.SetParams(type,message,duration);
         }
+        private void PinButtonPressed()
+        {
+            if(GetWindow().AlwaysOnTop)
+            {
+                SigBus.EmitSignal(nameof(SigBus.SendNotification), 0, "Unpinned Window", 1);
+                GetWindow().AlwaysOnTop = false;
+            }
+            else
+            {
+                SigBus.EmitSignal(nameof(SigBus.SendNotification), 0, "Pinned Window", 1);
+                GetWindow().AlwaysOnTop = true;
+            }
+        }
+
+        private void MinimizeButtonPressed()
+        {
+            GetTree().GetRoot().Mode = Window.ModeEnum.Minimized;
+        }
 }

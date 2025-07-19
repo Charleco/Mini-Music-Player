@@ -16,6 +16,15 @@ public partial class Notification : MarginContainer
         MinimumSizeChanged += SetPivot;
     }
 
+    public override void _Input(InputEvent @event)
+    {
+        base._Input(@event);
+        if(Input.IsMouseButtonPressed(MouseButton.Left))
+        {
+            QueueFree();
+        }
+    }
+
     private void SetPivot()
     {
         var newSize = new Vector2(Size.X, 0);
