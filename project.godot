@@ -27,6 +27,8 @@ window/size/viewport_height=400
 window/size/resizable=false
 window/size/borderless=true
 window/size/transparent=true
+window/stretch/mode="canvas_items"
+window/stretch/scale_mode="integer"
 window/per_pixel_transparency/allowed=true
 
 [dotnet]
@@ -37,6 +39,7 @@ project/assembly_name="Mini Music Player"
 
 theme/custom="uid://35346j02g11j"
 theme/custom_font="uid://b36v10vyocekh"
+theme/default_font_multichannel_signed_distance_field=true
 
 [rendering]
 

@@ -106,6 +106,11 @@ public partial class UiManager : Node
         {
             GetTree().GetRoot().Mode = Window.ModeEnum.Minimized;
         }
+
+        private void ExitButtonPressed()
+        {
+            GetTree().Quit();
+        }
         private void SendNotification(int type, string message, float duration)
         {
             var notification = _notificationScene.Instantiate() as Notification;

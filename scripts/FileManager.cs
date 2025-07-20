@@ -13,7 +13,7 @@ public partial class FileManager : Node
         SigBus.NewDirectorySelected += NewDirectorySelected;
         _fileDialog = GetNode<FileDialog>("FileDialog");
         _fileDialog.DirSelected += NewDirectorySelected;
-        _lastDirectoryPath = "D:";
+        _lastDirectoryPath = "D:/Music/";
     }
 
     private void NewDirectorySelected(string directory)
@@ -60,8 +60,9 @@ public partial class FileManager : Node
 
     private void ShowFileDialog()
     {
+        _fileDialog.SetCurrentPath(_lastDirectoryPath);
+        GD.Print(_lastDirectoryPath);
         _fileDialog.SetVisible(true);
-        _fileDialog.SetCurrentDir(_lastDirectoryPath);
     }
 }
 
