@@ -33,6 +33,9 @@ public partial class UiManager : Node
         private Label _artistLabel;
         [Export]
         private Label _albumLabel;
+        [Export]
+        private TextureRect _albumArtRect;
+        
         
         public override void _Ready()
         {
@@ -48,7 +51,10 @@ public partial class UiManager : Node
             if (Player.Stream != null)
             {
                 _durationSlider.SetValueNoSignal(Player.GetPlaybackPosition());
-                _currentSongTimeLabel.Text = ((int)(Player.GetPlaybackPosition())).ToString();
+                int totalSeconds = ((int)(Player.GetPlaybackPosition()));
+                int seconds = (totalSeconds % 60);
+                int minutes = totalSeconds / 60;
+                _currentSongTimeLabel.Text = $"{minutes}:{seconds:D2}";
             }
         }
 
@@ -74,11 +80,15 @@ public partial class UiManager : Node
         private void SongChanged(MusicResource resource)
         {
             _durationSlider.MaxValue = Player.Stream.GetLength();
-            _songTimeLabel.Text = ((int)(Player.Stream.GetLength())).ToString();
+            int totalSeconds = ((int)(Player.Stream.GetLength()));
+            int seconds = (totalSeconds % 60);
+            int minutes = totalSeconds / 60;
+            _songTimeLabel.Text = $"{minutes}:{seconds:D2}";
             //displaying song information
             _songNameLabel.Text = resource.Name;
             _artistLabel.Text = resource.Artist;
             _albumLabel.Text = resource.Album;
+            _albumArtRect.Texture = (Texture2D)resource.AlbumArt;
         }
         
         private void PinButtonPressed()

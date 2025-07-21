@@ -6,6 +6,8 @@ public partial class FileManager : Node
 {
     [Export]
     public Node UiManager;
+    [Export]
+    private Texture _defaultAlbumArtTexture;
     private FileDialog _fileDialog;
     private string _lastDirectoryPath;
     public override void _Ready()
@@ -35,14 +37,41 @@ public partial class FileManager : Node
                     filename.GetExtension() == "wav")
                 {
                     var fixedDir = ProjectSettings.GlobalizePath(directory+"/"+filename);
-                    GD.Print(fixedDir);
+                    //GD.Print(fixedDir);
+                    Texture2D AlbumArt = null;
                     using var tfile = TagLib.File.Create(fixedDir);
+                    var pictureData = tfile.Tag.Pictures.Length > 0 ? tfile.Tag.Pictures[0].Data.Data : null;
+                    if (pictureData != null)
+                    {
+                        var albumImage = new Image();
+                        var mimeType = tfile.Tag.Pictures[0].MimeType.ToLower();
+                        if (mimeType.Contains("jpeg") || mimeType.Contains("jpg"))
+                        {
+                            albumImage.LoadJpgFromBuffer(pictureData);
+                            albumImage.Resize(200, 200);
+                            AlbumArt = ImageTexture.CreateFromImage(albumImage);
+                        }
+                        else if (mimeType.Contains("png"))
+                        {
+                            albumImage.LoadPngFromBuffer(pictureData);
+                            albumImage.Resize(200, 200);
+                            AlbumArt = ImageTexture.CreateFromImage(albumImage);
+                        }
+                        else
+                        {
+                            //AlbumArt = DefaultArt;
+                        }
+                    }
+                    else
+                    {
+                        //AlbumArt = DefaultArt;
+                    }
                     var music = new MusicResource();
                     music.Path = directory + "/" + filename;
                     music.Name =  tfile.Tag.Title ?? "unknown";
                     music.Artist = tfile.Tag.FirstPerformer ?? "unknown";
                     music.Album = tfile.Tag.Album ?? "unknown";
-                    //music.AlbumArt = albumArt;
+                    music.AlbumArt = AlbumArt;
                     music.TrackNumber = (int)tfile.Tag.Track;
                     Instance.MusicResources.Add(music);
                 }

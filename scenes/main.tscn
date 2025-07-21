@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bbp3ql0w1h2xw"]
+[gd_scene load_steps=15 format=3 uid="uid://bbp3ql0w1h2xw"]
 
 [ext_resource type="Theme" uid="uid://35346j02g11j" path="res://resources/main_theme.tres" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://dts5ls7atfqlx" path="res://scripts/UiManager.cs" id="2_0wfyh"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://dqyhqa2hfcgbx" path="res://assets/icons/CloseIcon.png" id="10_choun"]
 [ext_resource type="Texture2D" uid="uid://brgna28qr6rmg" path="res://assets/icons/MinimizeIcon.png" id="10_ya4ey"]
 [ext_resource type="Texture2D" uid="uid://bkwqmhfhxmmqg" path="res://assets/icons/VolumeIcon.png" id="12_eb6dy"]
+[ext_resource type="Texture2D" uid="uid://btfctttx70hr3" path="res://icon.svg" id="13_a8y0u"]
 
 [node name="Main" type="Control"]
 texture_filter = 1
@@ -38,6 +39,7 @@ script = ExtResource("3_tefeu")
 [node name="FileManager" type="Node" parent="." node_paths=PackedStringArray("UiManager")]
 script = ExtResource("3_jyhfs")
 UiManager = NodePath("../UIManager")
+_defaultAlbumArtTexture = ExtResource("13_a8y0u")
 
 [node name="FileDialog" type="FileDialog" parent="FileManager"]
 title = "Open a Directory"
@@ -47,7 +49,7 @@ file_mode = 2
 access = 2
 use_native_dialog = true
 
-[node name="UIManager" type="Node" parent="." node_paths=PackedStringArray("Player", "_notificationContainer", "_musicListContainer", "_volumeSlider", "_volumeButton", "_durationSlider", "_currentSongTimeLabel", "_songTimeLabel", "_songNameLabel", "_artistLabel", "_albumLabel")]
+[node name="UIManager" type="Node" parent="." node_paths=PackedStringArray("Player", "_notificationContainer", "_musicListContainer", "_volumeSlider", "_volumeButton", "_durationSlider", "_currentSongTimeLabel", "_songTimeLabel", "_songNameLabel", "_artistLabel", "_albumLabel", "_albumArtRect")]
 script = ExtResource("2_0wfyh")
 Player = NodePath("../AudioManager/AudioStreamPlayer")
 _musicEntryScene = ExtResource("6_trceg")
@@ -59,9 +61,10 @@ _volumeButton = NodePath("../PanelContainer/VBoxContainer/MarginContainer/PanelC
 _durationSlider = NodePath("../PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/CenterContainer/MarginContainer/DurationSlider")
 _currentSongTimeLabel = NodePath("../PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/Label")
 _songTimeLabel = NodePath("../PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer3/HBoxContainer2/PanelContainer/Label")
-_songNameLabel = NodePath("../PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/VBoxContainer/SongNameLabel")
-_artistLabel = NodePath("../PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/VBoxContainer/ArtistLabel")
-_albumLabel = NodePath("../PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/VBoxContainer/AlbumLabel")
+_songNameLabel = NodePath("../PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/MarginContainer/ArtAspectRatioContainer/VBoxContainer/SongNameLabel")
+_artistLabel = NodePath("../PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/MarginContainer/ArtAspectRatioContainer/VBoxContainer/ArtistLabel")
+_albumLabel = NodePath("../PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/MarginContainer/ArtAspectRatioContainer/VBoxContainer/AlbumLabel")
+_albumArtRect = NodePath("../PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/MarginContainer/ArtAspectRatioContainer/ArtTextureRect")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -186,18 +189,25 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"LabelPanelContainer"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer"]
 layout_mode = 2
-alignment = 1
+size_flags_vertical = 3
 
-[node name="ArtAspectRatioContainer" type="AspectRatioContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="ArtAspectRatioContainer" type="AspectRatioContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 
-[node name="ArtTextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/VBoxContainer/ArtAspectRatioContainer"]
+[node name="ArtTextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/MarginContainer/ArtAspectRatioContainer"]
+self_modulate = Color(1, 1, 1, 0.313726)
 layout_mode = 2
+texture = ExtResource("13_a8y0u")
 stretch_mode = 5
 
-[node name="SongNameLabel" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/MarginContainer/ArtAspectRatioContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="SongNameLabel" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/MarginContainer/ArtAspectRatioContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Song Name"
@@ -205,14 +215,14 @@ horizontal_alignment = 1
 vertical_alignment = 1
 text_overrun_behavior = 4
 
-[node name="ArtistLabel" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="ArtistLabel" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/MarginContainer/ArtAspectRatioContainer/VBoxContainer"]
 layout_mode = 2
 text = "Artist"
 horizontal_alignment = 1
 vertical_alignment = 1
 text_overrun_behavior = 4
 
-[node name="AlbumLabel" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="AlbumLabel" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/MarginContainer/ArtAspectRatioContainer/VBoxContainer"]
 layout_mode = 2
 text = "Album"
 horizontal_alignment = 1
@@ -276,6 +286,8 @@ theme_type_variation = &"LabelPanelContainer"
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer"]
 layout_mode = 2
 text = "time 1"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CenterContainer" type="CenterContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -339,6 +351,8 @@ theme_type_variation = &"LabelPanelContainer"
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer3/HBoxContainer2/PanelContainer"]
 layout_mode = 2
 text = "time 2"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="NotificationCanvasLayer" type="CanvasLayer" parent="."]
 
