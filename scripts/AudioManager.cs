@@ -38,7 +38,18 @@ public partial class AudioManager : Node
 
     private void SongChanged(MusicResource resource)
     {
-        Player.Stream = LoadMp3(resource.Path);
+        switch (resource.Extension)
+        {
+            case "mp3":
+                Player.Stream = LoadMp3(resource.Path);
+                break;
+            case "wav":
+                Player.Stream = LoadWav(resource.Path);
+                break;
+            case "ogg":
+                Player.Stream = LoadOggVorbis(resource.Path);
+                break;
+        }
         Player.Play();
         SigBus.EmitSignal(nameof(SigBus.SongChanged),resource);
     }
@@ -47,6 +58,22 @@ public partial class AudioManager : Node
         using var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
         var sound = new AudioStreamMP3();
         sound.Data = file.GetBuffer((long)file.GetLength());
+        return sound;
+    }
+
+    private AudioStreamWav LoadWav(string path)
+    {
+        using var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
+        var sound = new AudioStreamWav();
+        sound.Data = file.GetBuffer((long)file.GetLength());
+        return sound;
+    }
+
+    private AudioStreamOggVorbis LoadOggVorbis(string path)
+    {
+        using var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
+        var sound = new AudioStreamOggVorbis();
+        sound = AudioStreamOggVorbis.LoadFromFile(path);
         return sound;
     }
     private void _playPauseButtonPressed()

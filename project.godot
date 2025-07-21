@@ -13,6 +13,9 @@ config_version=5
 config/name="Mini Music Player"
 run/main_scene="uid://bbp3ql0w1h2xw"
 config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
+boot_splash/bg_color=Color(0.160784, 0.176471, 0.254902, 1)
+boot_splash/show_image=false
+boot_splash/use_filter=false
 config/icon="res://icon.svg"
 
 [autoload]

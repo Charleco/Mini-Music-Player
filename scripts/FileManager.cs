@@ -38,41 +38,53 @@ public partial class FileManager : Node
                 {
                     var fixedDir = ProjectSettings.GlobalizePath(directory+"/"+filename);
                     //GD.Print(fixedDir);
-                    Texture2D AlbumArt = null;
-                    using var tfile = TagLib.File.Create(fixedDir);
-                    var pictureData = tfile.Tag.Pictures.Length > 0 ? tfile.Tag.Pictures[0].Data.Data : null;
+                    Texture2D albumArt = null;
+                    using var tagFile = TagLib.File.Create(fixedDir);
+                    var pictureData = tagFile.Tag.Pictures.Length > 0 ? tagFile.Tag.Pictures[0].Data.Data : null;
                     if (pictureData != null)
                     {
                         var albumImage = new Image();
-                        var mimeType = tfile.Tag.Pictures[0].MimeType.ToLower();
+                        var mimeType = tagFile.Tag.Pictures[0].MimeType.ToLower();
                         if (mimeType.Contains("jpeg") || mimeType.Contains("jpg"))
                         {
                             albumImage.LoadJpgFromBuffer(pictureData);
                             albumImage.Resize(200, 200);
-                            AlbumArt = ImageTexture.CreateFromImage(albumImage);
+                            albumArt = ImageTexture.CreateFromImage(albumImage);
                         }
                         else if (mimeType.Contains("png"))
                         {
                             albumImage.LoadPngFromBuffer(pictureData);
                             albumImage.Resize(200, 200);
-                            AlbumArt = ImageTexture.CreateFromImage(albumImage);
+                            albumArt = ImageTexture.CreateFromImage(albumImage);
                         }
                         else
                         {
-                            //AlbumArt = DefaultArt;
+                            albumArt = (Texture2D)_defaultAlbumArtTexture;
                         }
                     }
                     else
                     {
-                        //AlbumArt = DefaultArt;
+                        albumArt = (Texture2D)_defaultAlbumArtTexture;
                     }
                     var music = new MusicResource();
                     music.Path = directory + "/" + filename;
-                    music.Name =  tfile.Tag.Title ?? "unknown";
-                    music.Artist = tfile.Tag.FirstPerformer ?? "unknown";
-                    music.Album = tfile.Tag.Album ?? "unknown";
-                    music.AlbumArt = AlbumArt;
-                    music.TrackNumber = (int)tfile.Tag.Track;
+                    music.Name =  tagFile.Tag.Title ?? "unknown";
+                    music.Artist = tagFile.Tag.FirstPerformer ?? "unknown";
+                    music.Album = tagFile.Tag.Album ?? "unknown";
+                    music.AlbumArt = albumArt;
+                    music.TrackNumber = (int)tagFile.Tag.Track;
+                    switch (filename.GetExtension())
+                    {
+                        case "mp3":
+                            music.Extension = "mp3";
+                            break;
+                        case "ogg":
+                            music.Extension = "ogg";
+                            break;
+                        case "wav":
+                            music.Extension = "wav";
+                            break;
+                    }
                     Instance.MusicResources.Add(music);
                 }
                 filename = openDir.GetNext();
@@ -89,6 +101,13 @@ public partial class FileManager : Node
 
     private void ShowFileDialog()
     {
+
+        if(!DirAccess.DirExistsAbsolute(_lastDirectoryPath))
+        {
+            _fileDialog.SetCurrentPath("C:/");
+            _fileDialog.SetVisible(true);
+            return;
+        }
         _fileDialog.SetCurrentPath(_lastDirectoryPath);
         GD.Print(_lastDirectoryPath);
         _fileDialog.SetVisible(true);

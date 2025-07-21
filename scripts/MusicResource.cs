@@ -15,4 +15,6 @@ public partial class MusicResource : Resource
     public Texture AlbumArt { get; set; }
     [Export]
     public int TrackNumber { get; set; }
+    [Export]
+    public string Extension { get; set; }
 }
