@@ -31,8 +31,13 @@ theme = ExtResource("1_o5qli")
 [node name="SignalBus" type="Node" parent="."]
 script = ExtResource("2_sugp2")
 
-[node name="AudioManager" type="Node" parent="."]
+[node name="AudioManager" type="Node" parent="." node_paths=PackedStringArray("_playPauseButton", "_skipBackButton", "_skipForwardButton", "_trackRepeatButton", "_shuffleButton")]
 script = ExtResource("3_tefeu")
+_playPauseButton = NodePath("../PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/HBoxContainer3/PlayPauseButton")
+_skipBackButton = NodePath("../PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/HBoxContainer3/SkipBckButton")
+_skipForwardButton = NodePath("../PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/HBoxContainer3/SkipFrwdButton")
+_trackRepeatButton = NodePath("../PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer/TrackRepeatButton")
+_shuffleButton = NodePath("../PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer/ShuffleButton")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AudioManager"]
 
@@ -109,11 +114,11 @@ icon = ExtResource("8_tipki")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Button" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
+[node name="ShuffleButton" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "shuffle"
 
-[node name="Button2" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
+[node name="TrackRepeatButton" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "repeat"
 
@@ -199,6 +204,7 @@ size_flags_vertical = 3
 
 [node name="ArtTextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/MarginContainer/ArtAspectRatioContainer"]
 self_modulate = Color(1, 1, 1, 0.313726)
+texture_filter = 2
 layout_mode = 2
 texture = ExtResource("13_a8y0u")
 stretch_mode = 5
@@ -210,21 +216,18 @@ alignment = 2
 [node name="SongNameLabel" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/MarginContainer/ArtAspectRatioContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Song Name"
 horizontal_alignment = 1
 vertical_alignment = 1
 text_overrun_behavior = 4
 
 [node name="ArtistLabel" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/MarginContainer/ArtAspectRatioContainer/VBoxContainer"]
 layout_mode = 2
-text = "Artist"
 horizontal_alignment = 1
 vertical_alignment = 1
 text_overrun_behavior = 4
 
 [node name="AlbumLabel" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/MarginContainer/ArtAspectRatioContainer/VBoxContainer"]
 layout_mode = 2
-text = "Album"
 horizontal_alignment = 1
 vertical_alignment = 1
 text_overrun_behavior = 4
@@ -285,7 +288,7 @@ theme_type_variation = &"LabelPanelContainer"
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer"]
 layout_mode = 2
-text = "time 1"
+text = "0:00"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -297,20 +300,20 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Button2" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/HBoxContainer3"]
+[node name="SkipBckButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "skp bck"
 
-[node name="Button3" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/HBoxContainer3"]
+[node name="PlayPauseButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "play pause"
 
-[node name="Button4" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/HBoxContainer3"]
+[node name="SkipFrwdButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "skp bck"
+text = "skp frwd"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -350,7 +353,7 @@ theme_type_variation = &"LabelPanelContainer"
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer3/HBoxContainer2/PanelContainer"]
 layout_mode = 2
-text = "time 2"
+text = "0:00"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -411,7 +414,10 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
+[connection signal="finished" from="AudioManager/AudioStreamPlayer" to="AudioManager" method="PlayNextSong"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer/DirectoryButton" to="FileManager" method="ShowFileDialog"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer/ShuffleButton" to="AudioManager" method="_shuffleButtonPressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer/TrackRepeatButton" to="AudioManager" method="_trackRepeatButtonPressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2/PinButton" to="UIManager" method="PinButtonPressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2/MinimizeButton" to="UIManager" method="MinimizeButtonPressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2/CloseButton" to="UIManager" method="ExitButtonPressed"]

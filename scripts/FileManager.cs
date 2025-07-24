@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.IO;
 using static Global;
 using static SignalBus;
 public partial class FileManager : Node
@@ -37,7 +38,6 @@ public partial class FileManager : Node
                     filename.GetExtension() == "wav")
                 {
                     var fixedDir = ProjectSettings.GlobalizePath(directory+"/"+filename);
-                    //GD.Print(fixedDir);
                     Texture2D albumArt = null;
                     using var tagFile = TagLib.File.Create(fixedDir);
                     var pictureData = tagFile.Tag.Pictures.Length > 0 ? tagFile.Tag.Pictures[0].Data.Data : null;
@@ -68,7 +68,7 @@ public partial class FileManager : Node
                     }
                     var music = new MusicResource();
                     music.Path = directory + "/" + filename;
-                    music.Name =  tagFile.Tag.Title ?? "unknown";
+                    music.Name =  tagFile.Tag.Title ?? Path.GetFileNameWithoutExtension(filename);
                     music.Artist = tagFile.Tag.FirstPerformer ?? "unknown";
                     music.Album = tagFile.Tag.Album ?? "unknown";
                     music.AlbumArt = albumArt;
@@ -95,7 +95,7 @@ public partial class FileManager : Node
         {
             SigBus.EmitSignal(nameof(SigBus.SendNotification),1,"Directory is not valid, "+DirAccess.GetOpenError(), 2);
         }
-
+        Instance.MusicResources.Sort((resource, musicResource) => resource.TrackNumber.CompareTo(musicResource.TrackNumber));
         UiManager.Call("PopulateMusicList");
     }
 

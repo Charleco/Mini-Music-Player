@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using static SignalBus;
+using static Global;
 public partial class AudioManager : Node
 {
     
@@ -12,46 +13,111 @@ public partial class AudioManager : Node
     private Button _skipBackButton;
     [Export] 
     private Button _skipForwardButton;
-    
     [Export]
     private Button _trackRepeatButton;
     [Export]
-    private Button _repeatButton;
+    private Button _shuffleButton;
     
-    public AudioStreamPlayer Player;
-    
-    public List<MusicResource> Queue = new List<MusicResource>();
+    private AudioStreamPlayer _player;
+    private List<MusicResource> _queue = new List<MusicResource>();
+    private bool _shuffleToggle;
+    private MusicResource _nextSong;
+    private MusicResource _currentSong;
+    private enum TrackRepeat
+    {
+        NoRepeat,
+        SingleTrackRepeat,
+        PlaylistRepeat
+    }
+    TrackRepeat _currentTrackRepeat;
     
 
     public override void _Ready()
     {
-        Player = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
+        _player = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
         SigBus.MusicEntrySelected += MusicEntrySelected;
-        
-        //_playPauseButton.Pressed += _playPauseButtonPressed;
+        _currentTrackRepeat = TrackRepeat.NoRepeat;
+        _playPauseButton.Pressed += _playPauseButtonPressed;
     }
+    
+    //user clicks music entry, starts new queue
     private void MusicEntrySelected(MusicResource resource)
     {
+        SetupQueue(resource);
         SongChanged(resource);
-        //setup queue
     }
 
+    private void SetupQueue(MusicResource resource)
+    {
+        _queue.Clear();
+        var startIndex = Instance.MusicResources.IndexOf(resource);
+        _currentSong = resource;
+        
+        if (_shuffleToggle)
+        {
+            
+        }
+        else
+        {
+            _queue.AddRange(Instance.MusicResources.GetRange(startIndex, Instance.MusicResources.Count - startIndex));
+            if (_currentTrackRepeat == TrackRepeat.PlaylistRepeat && startIndex > 0)
+            {
+                _queue.AddRange(Instance.MusicResources.GetRange(0, startIndex));
+            }
+        }
+    }
+    private void SetNextSong()
+    {
+        if (_currentTrackRepeat == TrackRepeat.SingleTrackRepeat)
+        {
+            _nextSong = _currentSong;
+        }
+        else
+        {
+            if (_queue.IndexOf(_currentSong)+1 < _queue.Count-1)
+            {
+                _nextSong = _queue[_queue.IndexOf(_currentSong)+1];
+            }
+            else if (_currentTrackRepeat == TrackRepeat.PlaylistRepeat)
+            {
+                SetupQueue(_currentSong);
+            }
+            else
+            {
+                _nextSong = null;
+            }
+            
+        }
+    }
+    // connected to Player.Finished(), can also be triggered by the skip ahead button
+    private void PlayNextSong()
+    {
+        if(_nextSong != null)
+        {
+            SongChanged(_nextSong);
+        }
+    }
+    
+    //load song, tell UI to display the song info via signal, set next song
     private void SongChanged(MusicResource resource)
     {
         switch (resource.Extension)
         {
             case "mp3":
-                Player.Stream = LoadMp3(resource.Path);
+                _player.Stream = LoadMp3(resource.Path);
                 break;
             case "wav":
-                Player.Stream = LoadWav(resource.Path);
+                _player.Stream = LoadWav(resource.Path);
                 break;
             case "ogg":
-                Player.Stream = LoadOggVorbis(resource.Path);
+                _player.Stream = LoadOggVorbis(resource.Path);
                 break;
         }
-        Player.Play();
+        
+        _player.Seek(0.0f);
+        _player.Play();
         SigBus.EmitSignal(nameof(SigBus.SongChanged),resource);
+        SetNextSong();
     }
     private AudioStreamMP3 LoadMp3(string path)
     {
@@ -72,28 +138,30 @@ public partial class AudioManager : Node
     private AudioStreamOggVorbis LoadOggVorbis(string path)
     {
         using var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
-        var sound = new AudioStreamOggVorbis();
-        sound = AudioStreamOggVorbis.LoadFromFile(path);
+        var sound = AudioStreamOggVorbis.LoadFromFile(path);
         return sound;
     }
     private void _playPauseButtonPressed()
     {
-        if (Player.IsPlaying())
+        if (_player.Stream != null)
         {
-            Player.StreamPaused = true;
-            //_playPauseButton.Icon = play
-        }
-        else
-        {
-            Player.Play();
-            //_playPauseButton.Icon = pause
+            if (_player.IsPlaying())
+            {
+                _player.StreamPaused = true;
+                //_playPauseButton.Icon = play
+            }
+            else
+            {
+                _player.Play();
+                //_playPauseButton.Icon = pause
+            }
         }
     }
     private void _skipBackButtonPressed()
     {
-        if (Player.GetPlaybackPosition() > 1.0)
+        if (_player.GetPlaybackPosition() > 1.0)
         {
-            Player.Seek(0.0f);
+            _player.Seek(0.0f);
         }
         else
         {
@@ -102,22 +170,41 @@ public partial class AudioManager : Node
     }
     private void _skipForwardButtonPressed()
     {
-        //skip to next song
+        PlayNextSong();
     }
     private void _trackRepeatButtonPressed()
     {
         //switch between no repeat, single repeat, whole repeat
+        switch (_currentTrackRepeat)
+        {
+            case TrackRepeat.NoRepeat:
+                _currentTrackRepeat = TrackRepeat.SingleTrackRepeat;
+                SetNextSong();
+                break;
+            case TrackRepeat.SingleTrackRepeat:
+                _currentTrackRepeat = TrackRepeat.PlaylistRepeat;
+                break;
+            case TrackRepeat.PlaylistRepeat:
+                _currentTrackRepeat = TrackRepeat.NoRepeat;
+                break;
+        }
+
+        if (_currentSong != null)
+        {
+            SetupQueue(_currentSong);
+        }
     }
     private void _shuffleButtonPressed()
     {
-        //toggle between shuffle and nonshuffle
+        _shuffleToggle = !_shuffleToggle;
+        SetNextSong();
     }
     private void SetDuration(float duration)
     {
-        Player.StreamPaused = true;
-        Player.Seek(0);
-        Player.StreamPaused = false;
-        Player.Play();
+        _player.StreamPaused = true;
+        _player.Seek(0);
+        _player.StreamPaused = false;
+        _player.Play();
     }
     
 }

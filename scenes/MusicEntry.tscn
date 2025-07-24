@@ -3,9 +3,12 @@
 [ext_resource type="Script" uid="uid://8m4fe0c6eyma" path="res://scripts/MusicEntry.cs" id="1_ogyyh"]
 
 [node name="MusicEntry" type="HBoxContainer"]
-anchors_preset = 15
+anchors_preset = 14
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 0.5
+offset_top = -7.0
+offset_bottom = 7.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
