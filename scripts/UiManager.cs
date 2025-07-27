@@ -10,11 +10,11 @@ public partial class UiManager : Node
         [Export]
         private PackedScene _musicEntryScene; 
         [Export]
-        PackedScene _notificationScene;
+        private PackedScene _notificationScene;
         [Export]
-        VBoxContainer _notificationContainer;
+        private VBoxContainer _notificationContainer;
         [Export]
-        VBoxContainer _musicListContainer;
+        private VBoxContainer _musicListContainer;
         
         [Export]
         private HSlider _volumeSlider;
@@ -35,7 +35,17 @@ public partial class UiManager : Node
         private Label _albumLabel;
         [Export]
         private TextureRect _albumArtRect;
-        
+
+        [Export]
+        private Texture2D _volume0Icon;
+        [Export]
+        private Texture2D _volume1Icon;
+        [Export]
+        private Texture2D _volume2Icon;
+        [Export]
+        private Texture2D _volume3Icon;
+
+        private Vector2 _visibleMousePosition;
         
         public override void _Ready()
         {
@@ -111,6 +121,21 @@ public partial class UiManager : Node
         private void SetVolume(float volume)
         {
             AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Master"), Mathf.LinearToDb(volume));
+            switch (volume)
+            {
+                case >0.67f:
+                    _volumeButton.Icon = _volume3Icon;
+                    break;
+                case >0.34f:
+                    _volumeButton.Icon = _volume2Icon;
+                    break;
+                case >0:
+                    _volumeButton.Icon = _volume1Icon;
+                    break;
+                case 0:
+                    _volumeButton.Icon = _volume0Icon;
+                    break;
+            }
         }
         private void MinimizeButtonPressed()
         {
@@ -133,7 +158,18 @@ public partial class UiManager : Node
             base._Input(@event);
             if(@event is InputEventMouseMotion mouseMotion && Input.IsMouseButtonPressed(MouseButton.Right))
             {
+                if (Input.MouseMode == Input.MouseModeEnum.Visible)
+                {
+                    _visibleMousePosition = GetViewport().GetMousePosition();
+                    Input.MouseMode = Input.MouseModeEnum.Captured;
+                }
                 GetTree().GetRoot().Position += (Vector2I)mouseMotion.Relative;
+            }
+
+            if (Input.MouseMode == Input.MouseModeEnum.Captured && !Input.IsMouseButtonPressed(MouseButton.Right))
+            {
+                Input.MouseMode = Input.MouseModeEnum.Visible;
+                GetViewport().WarpMouse(_visibleMousePosition);
             }
         }
         

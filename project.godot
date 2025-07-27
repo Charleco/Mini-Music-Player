@@ -16,7 +16,7 @@ config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
 boot_splash/bg_color=Color(0.160784, 0.176471, 0.254902, 1)
 boot_splash/show_image=false
 boot_splash/use_filter=false
-config/icon="res://icon.svg"
+config/icon="uid://cybbld4blqit3"
 
 [autoload]
 

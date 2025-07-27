@@ -200,6 +200,7 @@ Button/colors/icon_hover_color = Color(0.819608, 0.772549, 0.8, 1)
 Button/colors/icon_hover_pressed_color = Color(0.819608, 0.772549, 0.8, 1)
 Button/colors/icon_normal_color = Color(0.709804, 0.619608, 0.564706, 1)
 Button/colors/icon_pressed_color = Color(0.819608, 0.772549, 0.8, 1)
+Button/constants/icon_max_width = 32
 Button/font_sizes/font_size = 32
 Button/styles/focus = SubResource("StyleBoxFlat_0ahyh")
 Button/styles/hover = SubResource("StyleBoxFlat_7rtxy")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bbp3ql0w1h2xw"]
+[gd_scene load_steps=26 format=3 uid="uid://bbp3ql0w1h2xw"]
 
 [ext_resource type="Theme" uid="uid://35346j02g11j" path="res://resources/main_theme.tres" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://dts5ls7atfqlx" path="res://scripts/UiManager.cs" id="2_0wfyh"]
@@ -10,13 +10,21 @@
 [ext_resource type="Texture2D" uid="uid://dnxghsybpo3s0" path="res://assets/icons/RepeatIcon.png" id="6_dp3eg"]
 [ext_resource type="PackedScene" uid="uid://dfwp3xkphi03d" path="res://scenes/MusicEntry.tscn" id="6_trceg"]
 [ext_resource type="Texture2D" uid="uid://ck2t2yg36by4e" path="res://assets/icons/DirectoryIcon.png" id="7_o6xl0"]
+[ext_resource type="Texture2D" uid="uid://bx208t3l32ac6" path="res://assets/icons/PauseIcon.png" id="8_gqmmt"]
 [ext_resource type="Texture2D" uid="uid://b7mgvkqrduarm" path="res://assets/icons/PreferencesIcon.png" id="8_tipki"]
 [ext_resource type="Texture2D" uid="uid://dxrqor5ysfke6" path="res://assets/icons/PinIcon.png" id="9_85g3d"]
 [ext_resource type="Texture2D" uid="uid://dqyhqa2hfcgbx" path="res://assets/icons/CloseIcon.png" id="10_choun"]
 [ext_resource type="Texture2D" uid="uid://brgna28qr6rmg" path="res://assets/icons/MinimizeIcon.png" id="10_ya4ey"]
 [ext_resource type="Texture2D" uid="uid://dhv47vduudkgx" path="res://assets/icons/RepeatIconNoRepeat.png" id="11_jkv2x"]
 [ext_resource type="Texture2D" uid="uid://bkwqmhfhxmmqg" path="res://assets/icons/VolumeIcon.png" id="12_eb6dy"]
-[ext_resource type="Texture2D" uid="uid://btfctttx70hr3" path="res://icon.svg" id="13_a8y0u"]
+[ext_resource type="Texture2D" uid="uid://mc8kpuo16hpg" path="res://assets/icons/ShuffleIcon.png" id="14_dp3eg"]
+[ext_resource type="Texture2D" uid="uid://cstwj6ujceqlt" path="res://assets/icons/VolumeIcon1.png" id="15_og1vs"]
+[ext_resource type="Texture2D" uid="uid://doh8p266wrf8v" path="res://assets/icons/VolumeIcon2.png" id="16_2wyq8"]
+[ext_resource type="Texture2D" uid="uid://dlrow22co4hc1" path="res://assets/icons/VolumeIcon3.png" id="17_vxglm"]
+[ext_resource type="Texture2D" uid="uid://ceveo6dojj5qq" path="res://assets/icons/PlayIcon.png" id="18_0ld40"]
+[ext_resource type="Texture2D" uid="uid://cybbld4blqit3" path="res://assets/icons/AppIcon.png" id="20_pm3ni"]
+[ext_resource type="Texture2D" uid="uid://bdtyqkk0p8pwr" path="res://assets/icons/SkipBackIcon.png" id="20_yc10j"]
+[ext_resource type="Texture2D" uid="uid://8mqpo5xhu344" path="res://assets/icons/SkipForwardIcon.png" id="21_jscy8"]
 
 [node name="Main" type="Control"]
 texture_filter = 1
@@ -44,13 +52,15 @@ _shuffleButton = NodePath("../PanelContainer/VBoxContainer/HeaderPanelContainer/
 _trackNoRepeatIcon = ExtResource("11_jkv2x")
 _trackSingleRepeatIcon = ExtResource("5_muem4")
 _trackRepeatIcon = ExtResource("6_dp3eg")
+_playButtonTexture = ExtResource("18_0ld40")
+_pauseButtonTexture = ExtResource("8_gqmmt")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AudioManager"]
 
 [node name="FileManager" type="Node" parent="." node_paths=PackedStringArray("UiManager")]
 script = ExtResource("3_jyhfs")
 UiManager = NodePath("../UIManager")
-_defaultAlbumArtTexture = ExtResource("13_a8y0u")
+_defaultAlbumArtTexture = ExtResource("20_pm3ni")
 
 [node name="FileDialog" type="FileDialog" parent="FileManager"]
 title = "Open a Directory"
@@ -76,6 +86,10 @@ _songNameLabel = NodePath("../PanelContainer/VBoxContainer/MarginContainer/Panel
 _artistLabel = NodePath("../PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/MarginContainer/ArtAspectRatioContainer/VBoxContainer/ArtistLabel")
 _albumLabel = NodePath("../PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/MarginContainer/ArtAspectRatioContainer/VBoxContainer/AlbumLabel")
 _albumArtRect = NodePath("../PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/MarginContainer/ArtAspectRatioContainer/ArtTextureRect")
+_volume0Icon = ExtResource("12_eb6dy")
+_volume1Icon = ExtResource("15_og1vs")
+_volume2Icon = ExtResource("16_2wyq8")
+_volume3Icon = ExtResource("17_vxglm")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -105,28 +119,39 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="DirectoryButton" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(26, 26)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Directory"
+focus_mode = 0
 icon = ExtResource("7_o6xl0")
 icon_alignment = 1
 expand_icon = true
 
 [node name="PreferencesButton" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(26, 26)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Preferences"
+focus_mode = 0
 icon = ExtResource("8_tipki")
 icon_alignment = 1
 expand_icon = true
 
 [node name="ShuffleButton" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-text = "shuffle"
+tooltip_text = "Shuffle"
+focus_mode = 0
+icon = ExtResource("14_dp3eg")
+icon_alignment = 1
+expand_icon = true
 
 [node name="TrackRepeatButton" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(26, 26)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+tooltip_text = "Repeat"
+focus_mode = 0
 icon = ExtResource("11_jkv2x")
 icon_alignment = 1
 expand_icon = true
@@ -141,25 +166,31 @@ layout_mode = 2
 alignment = 2
 
 [node name="PinButton" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(26, 26)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Pin"
+focus_mode = 0
 icon = ExtResource("9_85g3d")
 icon_alignment = 1
 expand_icon = true
 
 [node name="MinimizeButton" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(26, 26)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Minimize"
+focus_mode = 0
 icon = ExtResource("10_ya4ey")
 icon_alignment = 1
 expand_icon = true
 
 [node name="CloseButton" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(26, 26)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Close"
+focus_mode = 0
 theme_type_variation = &"ExitButton"
 icon = ExtResource("10_choun")
 icon_alignment = 1
@@ -213,9 +244,8 @@ size_flags_vertical = 3
 
 [node name="ArtTextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/MarginContainer/ArtAspectRatioContainer"]
 self_modulate = Color(1, 1, 1, 0.313726)
-texture_filter = 2
 layout_mode = 2
-texture = ExtResource("13_a8y0u")
+texture = ExtResource("20_pm3ni")
 stretch_mode = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/MarginContainer/ArtAspectRatioContainer"]
@@ -276,6 +306,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(550, 0)
 layout_mode = 2
 size_flags_vertical = 1
+focus_mode = 0
 scrollable = false
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
@@ -310,19 +341,34 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="SkipBckButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "skp bck"
+tooltip_text = "Skip Back"
+focus_mode = 0
+icon = ExtResource("20_yc10j")
+icon_alignment = 1
+expand_icon = true
 
 [node name="PlayPauseButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "play pause"
+tooltip_text = "Play"
+focus_mode = 0
+icon = ExtResource("18_0ld40")
+icon_alignment = 1
+expand_icon = true
 
 [node name="SkipFrwdButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "skp frwd"
+tooltip_text = "Skip Forward"
+focus_mode = 0
+icon = ExtResource("21_jscy8")
+icon_alignment = 1
+expand_icon = true
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -334,10 +380,13 @@ layout_mode = 2
 alignment = 2
 
 [node name="MuteButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer3/HBoxContainer4"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_vertical = 4
+focus_mode = 0
 icon = ExtResource("12_eb6dy")
 icon_alignment = 1
+expand_icon = true
 
 [node name="CenterContainer" type="CenterContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer3/HBoxContainer4"]
 layout_mode = 2
@@ -349,6 +398,7 @@ layout_mode = 2
 [node name="VolumeSlider" type="HSlider" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer3/HBoxContainer4/CenterContainer/MarginContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+focus_mode = 0
 max_value = 1.0
 step = 0.005
 

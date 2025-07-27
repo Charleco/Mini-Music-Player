@@ -25,6 +25,11 @@ public partial class AudioManager : Node
     private Texture2D _trackSingleRepeatIcon;
     [Export]
     private Texture2D _trackRepeatIcon;
+
+    [Export]
+    private Texture2D _playButtonTexture;
+    [Export]
+    private Texture2D _pauseButtonTexture;
     
     private AudioStreamPlayer _player;
     private List<MusicResource> _queue = new List<MusicResource>();
@@ -48,6 +53,7 @@ public partial class AudioManager : Node
         SigBus.MusicEntrySelected += MusicEntrySelected;
         _currentTrackRepeat = TrackRepeat.NoRepeat;
         _shuffleToggle = false;
+        
     }
     
     //user clicks music entry, starts new queue
@@ -55,6 +61,7 @@ public partial class AudioManager : Node
     {
         SetupQueue(resource);
         SongChanged(resource);
+        _playPauseButton.Icon = _pauseButtonTexture;
     }
 
     private void SetupQueue(MusicResource resource)
@@ -128,6 +135,7 @@ public partial class AudioManager : Node
         
         _player.Seek(0.0f);
         _player.Play();
+        _playPauseButton.Icon = _playButtonTexture;
         SigBus.EmitSignal(nameof(SigBus.SongChanged),resource);
         
     }
@@ -155,64 +163,61 @@ public partial class AudioManager : Node
     }
     private void _playPauseButtonPressed()
     {
-        if (_player.Stream != null)
+        if (_player.Stream == null)
+            return;
+        if (_player.IsPlaying())
         {
-            if (_player.IsPlaying())
-            {
-                _player.StreamPaused = true;
-                //_playPauseButton.Icon = play
-            }
-            else
-            {
-                _player.StreamPaused = false;
-                //_playPauseButton.Icon = pause
-            }
+            _player.StreamPaused = true;
+            _playPauseButton.TooltipText = "Play";
+            _playPauseButton.Icon = _playButtonTexture;
         }
-    }
-    private void _skipBackButtonPressed()
-    {
-        if (_player.Stream != null)
+        else
         {
-            if (_player.GetPlaybackPosition() > 1 )
-            {
-                _player.Seek(0.0f);
-            }
-            else
-            {
-                if (_currentTrackRepeat is TrackRepeat.NoRepeat or TrackRepeat.PlaylistRepeat && Instance.MusicResources.IndexOf(_currentSong) != 0)
-                {
-                    SetupQueue(Instance.MusicResources[Instance.MusicResources.IndexOf(_currentSong)-1]);
-                    SongChanged(_currentSong);
-                }
-                else if (_currentTrackRepeat == TrackRepeat.PlaylistRepeat && _queueIndex == 0)
-                {
-                    SetupQueue(_queue[_queue.Count - 1]);
-                    SongChanged(_currentSong);
-                }
-                else if (_currentTrackRepeat == TrackRepeat.SingleTrackRepeat)
-                {
-                    SetNextSong();
-                    PlayNextSong();
-                }
-            }
+            _player.StreamPaused = false;
+            _playPauseButton.TooltipText = "Pause";
+            _playPauseButton.Icon = _pauseButtonTexture;
         }
         
     }
+    private void _skipBackButtonPressed()
+    {
+        if (_player.Stream == null)
+            return;
+        if (_player.GetPlaybackPosition() > 1 )
+        {
+            _player.Seek(0.0f);
+        }
+        else
+        {
+            if (_currentTrackRepeat is TrackRepeat.NoRepeat or TrackRepeat.PlaylistRepeat && Instance.MusicResources.IndexOf(_currentSong) != 0)
+            {
+                SetupQueue(Instance.MusicResources[Instance.MusicResources.IndexOf(_currentSong)-1]);
+                SongChanged(_currentSong);
+            }
+            else if (_currentTrackRepeat == TrackRepeat.PlaylistRepeat && _queueIndex == 0)
+            {
+                SetupQueue(_queue[_queue.Count - 1]);
+                SongChanged(_currentSong);
+            }
+            else if (_currentTrackRepeat == TrackRepeat.SingleTrackRepeat)
+            {
+                SetNextSong();
+                PlayNextSong();
+            }
+        }
+    }
     private void _skipForwardButtonPressed()
     {
-        if (_player.Stream != null)
+        if (_player.Stream == null)
+            return;
+        PlayNextSong();
+        if (_currentTrackRepeat == TrackRepeat.SingleTrackRepeat)
+            SetupQueue(_currentSong);
+        else
         {
-            PlayNextSong();
-            if (_currentTrackRepeat == TrackRepeat.SingleTrackRepeat)
+            if (_queueIndex < _queue.Count - 1)
             {
-                SetupQueue(_currentSong);
-            }
-            else
-            {
-                if (_queueIndex < _queue.Count - 1)
-                {
-                    SetupQueue(_queue[_queueIndex+1]);
-                }
+                SetupQueue(_queue[_queueIndex+1]);
             }
         }
     }
@@ -241,7 +246,16 @@ public partial class AudioManager : Node
     }
     private void _shuffleButtonPressed()
     {
+        if (_shuffleToggle)
+        {
+            SigBus.EmitSignal(nameof(SigBus.SendNotification), 0, "Shuffle Off", 1);
+        }
+        else
+        {
+            SigBus.EmitSignal(nameof(SigBus.SendNotification), 0, "Shuffle On", 1);
+        }
         _shuffleToggle = !_shuffleToggle;
+        
         if (_player.Stream != null)
         {
             SetupQueue(_currentSong);
