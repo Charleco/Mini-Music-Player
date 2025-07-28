@@ -100,7 +100,7 @@ public partial class AudioManager : Node
             }
             else if (_currentTrackRepeat == TrackRepeat.PlaylistRepeat)
             {
-                SetupQueue(_currentSong);
+                SetupQueue(_queue[_queueIndex+1]);
             }
             else
             {
@@ -114,6 +114,8 @@ public partial class AudioManager : Node
         if(_nextSong != null)
         {
             SongChanged(_nextSong);
+            _queueIndex = _queue.IndexOf(_nextSong);
+            SetNextSong();
         }
     }
     
@@ -132,10 +134,11 @@ public partial class AudioManager : Node
                 _player.Stream = LoadOggVorbis(resource.Path);
                 break;
         }
-        
         _player.Seek(0.0f);
         _player.Play();
-        _playPauseButton.Icon = _playButtonTexture;
+        _player.Seek(0.0f);
+        _playPauseButton.Icon = _pauseButtonTexture;
+        _playPauseButton.TooltipText = "Pause";
         SigBus.EmitSignal(nameof(SigBus.SongChanged),resource);
         
     }
@@ -262,12 +265,4 @@ public partial class AudioManager : Node
         }
         
     }
-    private void SetDuration(float duration)
-    {
-        _player.StreamPaused = true;
-        _player.Seek(0);
-        _player.StreamPaused = false;
-        _player.Play();
-    }
-    
 }

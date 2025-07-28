@@ -83,8 +83,16 @@ public partial class UiManager : Node
                 _musicListContainer.UpdateMinimumSize();
                 _musicListContainer.AddChild(new HSeparator());
             }
-            //gets rid of last HSeparator
-            _musicListContainer.RemoveChild(_musicListContainer.GetChild(_musicListContainer.GetChildCount()-1));
+            //Delete Last HSep if songs were found
+            if (_musicListContainer.GetChildren().Count > 0)
+            { 
+                _musicListContainer.RemoveChild(_musicListContainer.GetChild(_musicListContainer.GetChildCount()-1));
+            }
+            else
+            {
+                SendNotification(1, "No Music Files Found", 1.0f);
+            }
+                
         }
 
         private void SongChanged(MusicResource resource)
@@ -105,12 +113,12 @@ public partial class UiManager : Node
         {
             if(GetWindow().AlwaysOnTop)
             {
-                SigBus.EmitSignal(nameof(SigBus.SendNotification), 0, "Unpinned Window", 1);
+                SendNotification(0, "Unpinned Window", 1.0f);
                 GetWindow().AlwaysOnTop = false;
             }
             else
             {
-                SigBus.EmitSignal(nameof(SigBus.SendNotification), 0, "Pinned Window", 1);
+                SendNotification(0, "Pinned Window", 1.0f);
                 GetWindow().AlwaysOnTop = true;
             }
         }
@@ -170,6 +178,9 @@ public partial class UiManager : Node
             {
                 Input.MouseMode = Input.MouseModeEnum.Visible;
                 GetViewport().WarpMouse(_visibleMousePosition);
+                var testEvent = new InputEventMouseMotion();
+                testEvent.GlobalPosition = _visibleMousePosition;
+                Input.ParseInputEvent(testEvent);
             }
         }
         

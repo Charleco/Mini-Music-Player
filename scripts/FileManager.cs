@@ -21,12 +21,10 @@ public partial class FileManager : Node
 
     private void NewDirectorySelected(string directory)
     {
-        GD.Print("New directory selected: " + directory);
         _lastDirectoryPath = directory;
         var openDir = DirAccess.Open(directory);
         if (openDir != null)
         {
-            SigBus.EmitSignal(nameof(SigBus.SendNotification),0,"Fetching Music...",2);
             Instance.MusicResources.Clear();
             openDir.SetIncludeNavigational(false);
             openDir.SetIncludeHidden(false);

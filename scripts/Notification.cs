@@ -27,7 +27,7 @@ public partial class Notification : MarginContainer
 
     private void SetPivot()
     {
-        var newSize = new Vector2(Size.X, 0);
+        var newSize = new Vector2(0, 0);
         PivotOffset = newSize;
     }
     public void SetParams(int type, string message, float duration)
