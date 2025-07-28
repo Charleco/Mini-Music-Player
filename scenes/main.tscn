@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bbp3ql0w1h2xw"]
+[gd_scene load_steps=27 format=3 uid="uid://bbp3ql0w1h2xw"]
 
 [ext_resource type="Theme" uid="uid://35346j02g11j" path="res://resources/main_theme.tres" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://dts5ls7atfqlx" path="res://scripts/UiManager.cs" id="2_0wfyh"]
@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://cybbld4blqit3" path="res://assets/icons/AppIcon.png" id="20_pm3ni"]
 [ext_resource type="Texture2D" uid="uid://bdtyqkk0p8pwr" path="res://assets/icons/SkipBackIcon.png" id="20_yc10j"]
 [ext_resource type="Texture2D" uid="uid://8mqpo5xhu344" path="res://assets/icons/SkipForwardIcon.png" id="21_jscy8"]
+[ext_resource type="PackedScene" uid="uid://jsrek7nd7ek4" path="res://scenes/PreferencesMenu.tscn" id="26_2wyq8"]
 
 [node name="Main" type="Control"]
 texture_filter = 1
@@ -472,6 +473,8 @@ mouse_filter = 2
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
+
+[node name="PreferencesMenu" parent="." instance=ExtResource("26_2wyq8")]
 
 [connection signal="finished" from="AudioManager/AudioStreamPlayer" to="AudioManager" method="PlayNextSong"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer/DirectoryButton" to="FileManager" method="ShowFileDialog"]

@@ -40,7 +40,7 @@ project/assembly_name="Mini Music Player"
 [gui]
 
 theme/custom="uid://35346j02g11j"
-theme/custom_font="uid://b36v10vyocekh"
+theme/custom_font="uid://cy1iisvlx5ejj"
 theme/default_font_multichannel_signed_distance_field=true
 
 [rendering]

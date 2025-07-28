@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bsh2vbxkbogku" path="res://assets/icons/Grabber.png" id="1_biaja"]
 [ext_resource type="Texture2D" uid="uid://h78hlqqd3oxi" path="res://assets/icons/GrabberHighlight.png" id="2_vnc4k"]
-[ext_resource type="FontFile" uid="uid://dibuilmh0wmng" path="res://assets/Mini3x5.ttf" id="3_vnc4k"]
+[ext_resource type="FontFile" uid="uid://cy1iisvlx5ejj" path="res://assets/04B_03__.TTF" id="3_vnc4k"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x127s"]
 bg_color = Color(0.0941176, 0.0980392, 0.137255, 1)
@@ -201,7 +201,7 @@ Button/colors/icon_hover_pressed_color = Color(0.819608, 0.772549, 0.8, 1)
 Button/colors/icon_normal_color = Color(0.709804, 0.619608, 0.564706, 1)
 Button/colors/icon_pressed_color = Color(0.819608, 0.772549, 0.8, 1)
 Button/constants/icon_max_width = 32
-Button/font_sizes/font_size = 32
+Button/font_sizes/font_size = 16
 Button/styles/focus = SubResource("StyleBoxFlat_0ahyh")
 Button/styles/hover = SubResource("StyleBoxFlat_7rtxy")
 Button/styles/normal = SubResource("StyleBoxFlat_u427p")
@@ -221,7 +221,7 @@ HeaderButton/base_type = &"Button"
 HeaderPanel/base_type = &"PanelContainer"
 HeaderPanel/styles/panel = SubResource("StyleBoxFlat_biaja")
 Label/colors/font_color = Color(0.709804, 0.619608, 0.564706, 1)
-Label/font_sizes/font_size = 32
+Label/font_sizes/font_size = 16
 LabelPanelContainer/base_type = &"PanelContainer"
 LabelPanelContainer/styles/panel = SubResource("StyleBoxFlat_vnc4k")
 MarginContainer/constants/margin_bottom = 5
@@ -231,11 +231,13 @@ MarginContainer/constants/margin_top = 5
 MenuButton/font_sizes/font_size = 32
 MusicEntryHbox/base_type = &"HBoxContainer"
 MusicEntryLabel/base_type = &"Label"
-MusicEntryLabel/font_sizes/font_size = 11
+MusicEntryLabel/font_sizes/font_size = 8
 MusicEntryLabel/fonts/font = ExtResource("3_vnc4k")
 MusicEntryLabel/styles/normal = SubResource("StyleBoxEmpty_vnc4k")
 Panel/styles/panel = SubResource("StyleBoxFlat_2nojw")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_ols5k")
+ScaleButton/base_type = &"Button"
+TooltipLabel/font_sizes/font_size = 16
 VScrollBar/styles/grabber = SubResource("StyleBoxFlat_tieq2")
 VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_2e0dr")
 VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_rrxf3")
