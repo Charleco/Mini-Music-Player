@@ -15,6 +15,10 @@ public partial class UiManager : Node
         private VBoxContainer _notificationContainer;
         [Export]
         private VBoxContainer _musicListContainer;
+        [Export]
+        private Button _preferencesButton;
+        [Export]
+        private Window _preferencesWindow;
         
         [Export]
         private HSlider _volumeSlider;
@@ -95,6 +99,18 @@ public partial class UiManager : Node
                 
         }
 
+        private void PreferencesButtonPressed()
+        {
+            if (_preferencesWindow.IsVisible())
+            {
+                _preferencesWindow.Hide();
+            }
+            else
+            {
+                _preferencesWindow.Show();
+            }
+        }
+
         private void SongChanged(MusicResource resource)
         {
             _durationSlider.MaxValue = Player.Stream.GetLength();
@@ -163,6 +179,7 @@ public partial class UiManager : Node
         }
         public override void _Input(InputEvent @event)
         {
+            //FIXME: Some issue with rapid right clicks and no motion so _visMousePos isnt being set, right click released set mouse pos to center
             base._Input(@event);
             if(@event is InputEventMouseMotion mouseMotion && Input.IsMouseButtonPressed(MouseButton.Right))
             {

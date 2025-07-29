@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=24 format=3 uid="uid://35346j02g11j"]
+[gd_resource type="Theme" load_steps=26 format=3 uid="uid://35346j02g11j"]
 
 [ext_resource type="Texture2D" uid="uid://bsh2vbxkbogku" path="res://assets/icons/Grabber.png" id="1_biaja"]
 [ext_resource type="Texture2D" uid="uid://h78hlqqd3oxi" path="res://assets/icons/GrabberHighlight.png" id="2_vnc4k"]
@@ -115,6 +115,32 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 anti_aliasing = false
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fgisk"]
+bg_color = Color(0.0941176, 0.0980392, 0.137255, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.545098, 0.47451, 0.513726, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5e2ta"]
+bg_color = Color(0.0941176, 0.0980392, 0.137255, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.545098, 0.47451, 0.513726, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+anti_aliasing = false
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vnc4k"]
 content_margin_left = 1.0
 content_margin_top = 1.0
@@ -224,6 +250,12 @@ Label/colors/font_color = Color(0.709804, 0.619608, 0.564706, 1)
 Label/font_sizes/font_size = 16
 LabelPanelContainer/base_type = &"PanelContainer"
 LabelPanelContainer/styles/panel = SubResource("StyleBoxFlat_vnc4k")
+LineEdit/colors/caret_color = Color(0.709804, 0.619608, 0.564706, 1)
+LineEdit/colors/font_color = Color(0.709804, 0.619608, 0.564706, 1)
+LineEdit/colors/font_selected_color = Color(1, 1, 1, 1)
+LineEdit/colors/selection_color = Color(0.819608, 0.772549, 0.8, 1)
+LineEdit/styles/focus = SubResource("StyleBoxFlat_fgisk")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_5e2ta")
 MarginContainer/constants/margin_bottom = 5
 MarginContainer/constants/margin_left = 5
 MarginContainer/constants/margin_right = 5
