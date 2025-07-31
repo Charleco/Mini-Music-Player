@@ -11,6 +11,7 @@ public partial class FileManager : Node
     private Texture _defaultAlbumArtTexture;
     private FileDialog _fileDialog;
     private string _lastDirectoryPath;
+    private bool _firstDirectory = true;
     public override void _Ready()
     {
         SigBus.NewDirectorySelected += NewDirectorySelected;
@@ -21,6 +22,7 @@ public partial class FileManager : Node
 
     private void NewDirectorySelected(string directory)
     {
+        _firstDirectory = false;
         _lastDirectoryPath = directory;
         var openDir = DirAccess.Open(directory);
         if (openDir != null)
@@ -93,21 +95,29 @@ public partial class FileManager : Node
         {
             SigBus.EmitSignal(nameof(SigBus.SendNotification),1,"Directory is not valid, "+DirAccess.GetOpenError(), 2);
         }
-        Instance.MusicResources.Sort((resource, musicResource) => resource.TrackNumber.CompareTo(musicResource.TrackNumber));
+        if(!Instance.MusicListAlphabeticalSort)
+            Instance.MusicResources.Sort((resource, musicResource) => resource.TrackNumber.CompareTo(musicResource.TrackNumber));
+        else
+        {
+            Instance.MusicResources.Sort((resource, musicResource) => resource.Name.CompareTo(musicResource.Name));
+        }
         UiManager.Call("PopulateMusicList");
     }
-
+    
     private void ShowFileDialog()
     {
-
-        if(!DirAccess.DirExistsAbsolute(_lastDirectoryPath))
+        if((_firstDirectory && DirAccess.DirExistsAbsolute(Instance.FirstDirectoryPath)) || (!DirAccess.DirExistsAbsolute(_lastDirectoryPath)))
+        {
+            _fileDialog.SetCurrentPath(Instance.FirstDirectoryPath);
+        }
+        else if(!DirAccess.DirExistsAbsolute(_lastDirectoryPath))
         {
             _fileDialog.SetCurrentPath("C:/");
-            _fileDialog.SetVisible(true);
-            return;
         }
-        _fileDialog.SetCurrentPath(_lastDirectoryPath);
-        GD.Print(_lastDirectoryPath);
+        else
+        {
+            _fileDialog.SetCurrentPath(_lastDirectoryPath);
+        }
         _fileDialog.SetVisible(true);
     }
 }
