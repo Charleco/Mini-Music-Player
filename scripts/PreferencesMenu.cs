@@ -7,9 +7,11 @@ public partial class PreferencesMenu : Window
     [Export]
     private LineEdit _defaultDirectory;
     private Vector2 _visibleMousePosition;
+    private ConfigFile _configFile;
     public override void _Ready()
     {
         VisibilityChanged += SetPosition;
+        LoadPreferences();
     }
 
     private void ExitButtonPressed()
@@ -17,6 +19,18 @@ public partial class PreferencesMenu : Window
         Visible = false;
     }
 
+    private void LoadPreferences()
+    {
+        _configFile = new ConfigFile();
+        Error err = _configFile.Load("user://pref.cfg");
+        if (err != Error.Ok)
+        {
+            return;
+        }
+        SetResolution((int)_configFile.GetValue("Preferences", "Scale", 1));
+        Instance.FirstDirectoryPath = (string)_configFile.GetValue("Preferences", "DefaultDirectory","C:/");
+        Instance.MusicListAlphabeticalSort = (bool) _configFile.GetValue("Preferences", "DefaultSort", false);
+    }
     private void SetPosition()
     {
         this.Position = GetTree().GetRoot().Position;
@@ -49,7 +63,6 @@ public partial class PreferencesMenu : Window
         _configFile.SetValue("Preferences", "Scale", scale);
         switch (scale)
         {
-            
             case 1:
                 DisplayServer.WindowSetSize(new Vector2I(600, 400), 0);
                 ContentScaleFactor = 1.0f;
@@ -66,11 +79,11 @@ public partial class PreferencesMenu : Window
                 ContentScaleFactor = 2.0f;
                 break;
         }
-        _configFile.Save("user://pref.cfg");
     }
 
     private void SortingButtonPressed(int sortingOrder)
     {
+        //sort by name
         if (sortingOrder == 0)
         {
             Instance.MusicListAlphabeticalSort = true;
@@ -80,15 +93,18 @@ public partial class PreferencesMenu : Window
         {
             Instance.MusicListAlphabeticalSort = false;
         }
-            
+        _configFile.SetValue("Preferences", "DefaultSort", Instance.MusicListAlphabeticalSort);
     }
 
     private void DirectoryLineEditChanged(string newText)
     {
         Instance.FirstDirectoryPath = ProjectSettings.GlobalizePath(newText) + "/";
-        GD.Print(newText);
-        GD.Print("directory changed");
-        
+        _configFile.SetValue("Preferences", "DefaultDirectory", Instance.FirstDirectoryPath);
+    }
+
+    private void SavePreferences()
+    {
+        _configFile.Save("user://pref.cfg");
     }
     
 }

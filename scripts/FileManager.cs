@@ -17,7 +17,7 @@ public partial class FileManager : Node
         SigBus.NewDirectorySelected += NewDirectorySelected;
         _fileDialog = GetNode<FileDialog>("FileDialog");
         _fileDialog.DirSelected += NewDirectorySelected;
-        _lastDirectoryPath = "D:/Music/";
+        _lastDirectoryPath = "";
     }
 
     private void NewDirectorySelected(string directory)

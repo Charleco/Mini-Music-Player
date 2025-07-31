@@ -132,9 +132,7 @@ expand_icon = true
 [node name="LineEdit" type="LineEdit" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-alignment = 1
 editable = false
-expand_to_text_length = true
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -190,6 +188,7 @@ use_native_dialog = true
 [connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer/DefaultDirectoryButton" to="FileDialog" method="set_visible" binds= [true]]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer4/HBoxContainer/Button" to="." method="SortingButtonPressed" binds= [0]]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer4/HBoxContainer/Button2" to="." method="SortingButtonPressed" binds= [1]]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer5/Button2" to="." method="SavePreferences"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer5/Button" to="." method="ExitButtonPressed"]
 [connection signal="dir_selected" from="FileDialog" to="." method="DirectoryLineEditChanged"]
 [connection signal="dir_selected" from="FileDialog" to="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer/LineEdit" method="set_text"]
