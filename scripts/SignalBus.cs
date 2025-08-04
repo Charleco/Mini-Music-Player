@@ -17,5 +17,4 @@ public partial class SignalBus : Node
         base._Ready();
         SigBus = this;
     }
-    
 }

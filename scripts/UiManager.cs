@@ -48,6 +48,12 @@ public partial class UiManager : Node
         private Texture2D _volume2Icon;
         [Export]
         private Texture2D _volume3Icon;
+        [Export]
+        private Button _playPauseButton;
+        [Export]
+        private Texture2D _playButtonTexture;
+        [Export]
+        private Texture2D _pauseButtonTexture;
 
         private Vector2 _visibleMousePosition;
         
@@ -198,6 +204,55 @@ public partial class UiManager : Node
                 var testEvent = new InputEventMouseMotion();
                 testEvent.GlobalPosition = _visibleMousePosition;
                 Input.ParseInputEvent(testEvent);
+            }
+            if (Input.IsActionPressed("VolumeUp"))
+            {
+                _volumeSlider.Value += 2.0*_volumeSlider.Step;
+            }
+            if (Input.IsActionPressed("VolumeDown"))
+            {
+                _volumeSlider.Value -= 2.0*_volumeSlider.Step;
+            }
+
+            if (Input.IsActionJustPressed("PlayPause"))
+            {
+                if (Player.Stream == null)
+                    return;
+                if (Player.IsPlaying())
+                {
+                    Player.StreamPaused = true;
+                    _playPauseButton.TooltipText = "Play";
+                    _playPauseButton.Icon = _playButtonTexture;
+                }
+                else
+                {
+                    Player.StreamPaused = false;
+                    _playPauseButton.TooltipText = "Pause";
+                    _playPauseButton.Icon = _pauseButtonTexture;
+                }
+            }
+
+            if (Input.IsActionPressed("ScrubForwards"))
+            {
+                if (Player.GetPlaybackPosition() < Player.Stream.GetLength()-6.0f)
+                {
+                    Player.Seek(Player.GetPlaybackPosition()+5.0f);
+                }
+                else
+                {
+                    Player.Seek((float)Player.Stream.GetLength()-1.0f);
+                }
+            }
+            else if (Input.IsActionPressed("ScrubBackwards"))
+            {
+                if (Player.GetPlaybackPosition() > 6.0f)
+                {
+                    Player.Seek(Player.GetPlaybackPosition() - 5.0f);
+                }
+                else
+                {
+                    Player.Seek(0.0f);
+                }
             }
         }
         

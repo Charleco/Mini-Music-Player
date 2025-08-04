@@ -53,7 +53,6 @@ public partial class AudioManager : Node
         SigBus.MusicEntrySelected += MusicEntrySelected;
         _currentTrackRepeat = TrackRepeat.NoRepeat;
         _shuffleToggle = false;
-        
     }
     
     //user clicks music entry, starts new queue

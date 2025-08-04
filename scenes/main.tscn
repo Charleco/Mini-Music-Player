@@ -39,6 +39,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_o5qli")
+metadata/_edit_vertical_guides_ = [168.0]
 
 [node name="SignalBus" type="Node" parent="."]
 script = ExtResource("2_sugp2")
@@ -71,7 +72,7 @@ file_mode = 2
 access = 2
 use_native_dialog = true
 
-[node name="UIManager" type="Node" parent="." node_paths=PackedStringArray("Player", "_notificationContainer", "_musicListContainer", "_preferencesButton", "_preferencesWindow", "_volumeSlider", "_volumeButton", "_durationSlider", "_currentSongTimeLabel", "_songTimeLabel", "_songNameLabel", "_artistLabel", "_albumLabel", "_albumArtRect")]
+[node name="UIManager" type="Node" parent="." node_paths=PackedStringArray("Player", "_notificationContainer", "_musicListContainer", "_preferencesButton", "_preferencesWindow", "_volumeSlider", "_volumeButton", "_durationSlider", "_currentSongTimeLabel", "_songTimeLabel", "_songNameLabel", "_artistLabel", "_albumLabel", "_albumArtRect", "_playPauseButton")]
 script = ExtResource("2_0wfyh")
 Player = NodePath("../AudioManager/AudioStreamPlayer")
 _musicEntryScene = ExtResource("6_trceg")
@@ -93,6 +94,9 @@ _volume0Icon = ExtResource("12_eb6dy")
 _volume1Icon = ExtResource("15_og1vs")
 _volume2Icon = ExtResource("16_2wyq8")
 _volume3Icon = ExtResource("17_vxglm")
+_playPauseButton = NodePath("../PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/HBoxContainer3/PlayPauseButton")
+_playButtonTexture = ExtResource("18_0ld40")
+_pauseButtonTexture = ExtResource("8_gqmmt")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
