@@ -130,20 +130,6 @@ public partial class UiManager : Node
             _albumLabel.Text = resource.Album;
             _albumArtRect.Texture = (Texture2D)resource.AlbumArt;
         }
-        
-        private void PinButtonPressed()
-        {
-            if(GetWindow().AlwaysOnTop)
-            {
-                SendNotification(0, "Unpinned Window", 1.0f);
-                GetWindow().AlwaysOnTop = false;
-            }
-            else
-            {
-                SendNotification(0, "Pinned Window", 1.0f);
-                GetWindow().AlwaysOnTop = true;
-            }
-        }
         private void VolumeButtonPressed()
         {
             SetVolume(0f);

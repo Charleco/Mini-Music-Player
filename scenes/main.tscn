@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bbp3ql0w1h2xw"]
+[gd_scene load_steps=26 format=3 uid="uid://bbp3ql0w1h2xw"]
 
 [ext_resource type="Theme" uid="uid://35346j02g11j" path="res://resources/main_theme.tres" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://dts5ls7atfqlx" path="res://scripts/UiManager.cs" id="2_0wfyh"]
@@ -12,7 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://ck2t2yg36by4e" path="res://assets/icons/DirectoryIcon.png" id="7_o6xl0"]
 [ext_resource type="Texture2D" uid="uid://bx208t3l32ac6" path="res://assets/icons/PauseIcon.png" id="8_gqmmt"]
 [ext_resource type="Texture2D" uid="uid://b7mgvkqrduarm" path="res://assets/icons/PreferencesIcon.png" id="8_tipki"]
-[ext_resource type="Texture2D" uid="uid://dxrqor5ysfke6" path="res://assets/icons/PinIcon.png" id="9_85g3d"]
 [ext_resource type="Texture2D" uid="uid://dqyhqa2hfcgbx" path="res://assets/icons/CloseIcon.png" id="10_choun"]
 [ext_resource type="Texture2D" uid="uid://brgna28qr6rmg" path="res://assets/icons/MinimizeIcon.png" id="10_ya4ey"]
 [ext_resource type="Texture2D" uid="uid://dhv47vduudkgx" path="res://assets/icons/RepeatIconNoRepeat.png" id="11_jkv2x"]
@@ -171,16 +170,6 @@ size_flags_stretch_ratio = 1.4
 [node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 alignment = 2
-
-[node name="PinButton" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "Pin"
-focus_mode = 0
-icon = ExtResource("9_85g3d")
-icon_alignment = 1
-expand_icon = true
 
 [node name="MinimizeButton" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(32, 32)
@@ -491,7 +480,6 @@ popup_window = false
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer/PreferencesButton" to="UIManager" method="PreferencesButtonPressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer/ShuffleButton" to="AudioManager" method="_shuffleButtonPressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer/TrackRepeatButton" to="AudioManager" method="_trackRepeatButtonPressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2/PinButton" to="UIManager" method="PinButtonPressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2/MinimizeButton" to="UIManager" method="MinimizeButtonPressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2/CloseButton" to="UIManager" method="ExitButtonPressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/HBoxContainer3/SkipBckButton" to="AudioManager" method="_skipBackButtonPressed"]
