@@ -38,7 +38,6 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_o5qli")
-metadata/_edit_vertical_guides_ = [168.0]
 
 [node name="SignalBus" type="Node" parent="."]
 script = ExtResource("2_sugp2")
@@ -319,6 +318,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(45, 0)
 layout_mode = 2
 theme_type_variation = &"LabelPanelContainer"
 
@@ -403,6 +403,7 @@ layout_mode = 2
 alignment = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer3/HBoxContainer2"]
+custom_minimum_size = Vector2(45, 0)
 layout_mode = 2
 theme_type_variation = &"LabelPanelContainer"
 

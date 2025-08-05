@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=28 format=3 uid="uid://35346j02g11j"]
+[gd_resource type="Theme" load_steps=29 format=3 uid="uid://35346j02g11j"]
 
 [ext_resource type="Texture2D" uid="uid://bsh2vbxkbogku" path="res://assets/icons/Grabber.png" id="1_biaja"]
 [ext_resource type="Texture2D" uid="uid://h78hlqqd3oxi" path="res://assets/icons/GrabberHighlight.png" id="2_vnc4k"]
@@ -98,6 +98,12 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 anti_aliasing = false
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x127s"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vnc4k"]
 content_margin_left = 3.0
 content_margin_top = 3.0
@@ -155,10 +161,10 @@ corner_radius_bottom_left = 5
 anti_aliasing = false
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vnc4k"]
-content_margin_left = 1.0
-content_margin_top = 1.0
-content_margin_right = 1.0
-content_margin_bottom = 1.0
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2nojw"]
 corner_radius_top_left = 5
@@ -277,6 +283,7 @@ HeaderPanel/base_type = &"PanelContainer"
 HeaderPanel/styles/panel = SubResource("StyleBoxFlat_biaja")
 Label/colors/font_color = Color(0.709804, 0.619608, 0.564706, 1)
 Label/font_sizes/font_size = 16
+Label/styles/normal = SubResource("StyleBoxEmpty_x127s")
 LabelPanelContainer/base_type = &"PanelContainer"
 LabelPanelContainer/styles/panel = SubResource("StyleBoxFlat_vnc4k")
 LineEdit/colors/caret_color = Color(0.709804, 0.619608, 0.564706, 1)

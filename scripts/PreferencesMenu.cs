@@ -65,6 +65,7 @@ public partial class PreferencesMenu : Window
         {
             case 1:
                 DisplayServer.WindowSetSize(new Vector2I(600, 400), 0);
+                GetTree().GetRoot().ContentScaleFactor = 1.0f;
                 ContentScaleFactor = 1.0f;
                 Size = new Vector2I(400, 300);
                 break;
@@ -72,11 +73,13 @@ public partial class PreferencesMenu : Window
                 DisplayServer.WindowSetSize(new Vector2I(900, 600), 0);
                 Size = new Vector2I(600, 450);
                 ContentScaleFactor = 1.5f;
+                GetTree().GetRoot().ContentScaleFactor = 1.5f;
                 break;
             case 3:
                 DisplayServer.WindowSetSize(new Vector2I(1200, 800), 0);
                 Size = new Vector2I(800, 600);
                 ContentScaleFactor = 2.0f;
+                GetTree().GetRoot().ContentScaleFactor = 2.0f;
                 break;
         }
     }
@@ -105,6 +108,7 @@ public partial class PreferencesMenu : Window
     private void SavePreferences()
     {
         _configFile.Save("user://pref.cfg");
+        Visible = false;
     }
     
 }
