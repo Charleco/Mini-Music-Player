@@ -16,6 +16,8 @@ public partial class UiManager : Node
         [Export]
         private VBoxContainer _musicListContainer;
         [Export]
+        private ScrollContainer _musicListScrollContainer;
+        [Export]
         private Button _preferencesButton;
         [Export]
         private Window _preferencesWindow;
@@ -56,6 +58,7 @@ public partial class UiManager : Node
         private Texture2D _pauseButtonTexture;
 
         private Vector2 _visibleMousePosition;
+        private float _previousVolume;
         
         public override void _Ready()
         {
@@ -65,6 +68,8 @@ public partial class UiManager : Node
             _durationSlider.ValueChanged += (value) => Player.Seek((float)value);
             _volumeSlider.ValueChanged += (value) => SetVolume((float)value);
             SetVolume(0);
+            _volumeButton.TooltipText = "Unmute";
+            _previousVolume = 0.05f;
         }
         public override void _Process(double delta)
         {
@@ -102,7 +107,7 @@ public partial class UiManager : Node
             {
                 SendNotification(1, "No Music Files Found", 1.0f);
             }
-                
+            _musicListScrollContainer.SetDeferred("scroll_vertical",0);
         }
 
         private void PreferencesButtonPressed()
@@ -132,7 +137,19 @@ public partial class UiManager : Node
         }
         private void VolumeButtonPressed()
         {
-            SetVolume(0f);
+            if (_volumeSlider.Value != 0)
+            {
+                _previousVolume = (float)_volumeSlider.Value;
+                _volumeButton.TooltipText = "Unmute";
+                _volumeSlider.Value = 0.0;
+                SetVolume(0f);
+            }
+            else
+            {
+                SetVolume(_previousVolume);
+                _volumeSlider.Value = _previousVolume;
+                _volumeButton.TooltipText = "Mute";
+            }
         }
         private void SetVolume(float volume)
         {

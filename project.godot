@@ -32,6 +32,7 @@ window/size/borderless=true
 window/size/transparent=true
 window/subwindows/embed_subwindows=false
 window/per_pixel_transparency/allowed=true
+mouse_cursor/tooltip_position_offset=Vector2(10, 15)
 
 [dotnet]
 
@@ -39,6 +40,7 @@ project/assembly_name="Mini Music Player"
 
 [gui]
 
+timers/tooltip_delay_sec=0.7
 theme/custom="uid://35346j02g11j"
 theme/custom_font="uid://cy1iisvlx5ejj"
 theme/default_font_multichannel_signed_distance_field=true
