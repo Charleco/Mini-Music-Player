@@ -6,8 +6,6 @@ using static SignalBus;
 using static Global;
 public partial class AudioManager : Node
 {
-    
-    
     [Export]
     private Button _playPauseButton;
     [Export]
@@ -30,6 +28,10 @@ public partial class AudioManager : Node
     private Texture2D _playButtonTexture;
     [Export]
     private Texture2D _pauseButtonTexture;
+    [Export]
+    private Texture2D _shuffleButtonTexture;
+    [Export]
+    private Texture2D _noShuffleButtonTexture;
     
     private AudioStreamPlayer _player;
     private List<MusicResource> _queue = new List<MusicResource>();
@@ -248,16 +250,15 @@ public partial class AudioManager : Node
     }
     private void _shuffleButtonPressed()
     {
-        if (_shuffleToggle)
+        if(_shuffleToggle)
         {
-            SigBus.EmitSignal(nameof(SigBus.SendNotification), 0, "Shuffle Off", 1);
+            _shuffleButton.Icon = _noShuffleButtonTexture;
         }
         else
         {
-            SigBus.EmitSignal(nameof(SigBus.SendNotification), 0, "Shuffle On", 1);
+            _shuffleButton.Icon = _shuffleButtonTexture;
         }
         _shuffleToggle = !_shuffleToggle;
-        
         if (_player.Stream != null)
         {
             SetupQueue(_currentSong);

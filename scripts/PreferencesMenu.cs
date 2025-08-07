@@ -29,6 +29,8 @@ public partial class PreferencesMenu : Window
         }
         SetResolution((int)_configFile.GetValue("Preferences", "Scale", 1));
         Instance.FirstDirectoryPath = (string)_configFile.GetValue("Preferences", "DefaultDirectory","C:/");
+        _defaultDirectory.Text = (string)_configFile.GetValue("Preferences", "DefaultDirectory", "C:/");
+        _defaultDirectory.TooltipText = _defaultDirectory.Text;
         Instance.MusicListAlphabeticalSort = (bool) _configFile.GetValue("Preferences", "DefaultSort", false);
     }
     private void SetPosition()

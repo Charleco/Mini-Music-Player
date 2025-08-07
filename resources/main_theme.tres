@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=29 format=3 uid="uid://35346j02g11j"]
+[gd_resource type="Theme" load_steps=28 format=3 uid="uid://35346j02g11j"]
 
 [ext_resource type="Texture2D" uid="uid://bsh2vbxkbogku" path="res://assets/icons/Grabber.png" id="1_biaja"]
 [ext_resource type="Texture2D" uid="uid://h78hlqqd3oxi" path="res://assets/icons/GrabberHighlight.png" id="2_vnc4k"]
@@ -12,6 +12,10 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ahyh"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
 bg_color = Color(0.160784, 0.176471, 0.254902, 1)
 border_width_left = 1
 border_width_top = 1
@@ -25,6 +29,10 @@ corner_radius_bottom_left = 5
 anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7rtxy"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
 bg_color = Color(0.160784, 0.176471, 0.254902, 1)
 border_width_left = 1
 border_width_top = 1
@@ -38,6 +46,10 @@ corner_radius_bottom_left = 5
 anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u427p"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
 bg_color = Color(0.0941176, 0.0980392, 0.137255, 1)
 border_width_left = 1
 border_width_top = 1
@@ -51,20 +63,16 @@ corner_radius_bottom_left = 5
 anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hofdy"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
 bg_color = Color(0.160784, 0.176471, 0.254902, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.819608, 0.772549, 0.8, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-anti_aliasing = false
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qjhx0"]
-bg_color = Color(1, 0, 0.160784, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -182,11 +190,7 @@ corner_radius_bottom_left = 5
 anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_whago"]
-bg_color = Color(0, 0, 0, 0.647059)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
+bg_color = Color(0.0941176, 0.0980392, 0.137255, 0.784314)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -269,8 +273,6 @@ Button/styles/normal = SubResource("StyleBoxFlat_u427p")
 Button/styles/pressed = SubResource("StyleBoxFlat_hofdy")
 ErrorLabel/base_type = &"Label"
 ErrorLabel/colors/font_color = Color(1, 0, 0, 1)
-ExitButton/base_type = &"Button"
-ExitButton/styles/hover = SubResource("StyleBoxFlat_qjhx0")
 HSeparator/styles/separator = SubResource("StyleBoxLine_vnc4k")
 HSlider/constants/center_grabber = 1
 HSlider/icons/grabber = ExtResource("1_biaja")
