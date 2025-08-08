@@ -17,6 +17,10 @@ public partial class MusicEntry : HBoxContainer
         _nameLabel.Text = MusicResource.Name;
         _artistLabel.Text = MusicResource.Artist;
         _albumLabel.Text = MusicResource.Album;
+        
+        _nameLabel.TooltipText = MusicResource.Name;
+        _artistLabel.TooltipText = MusicResource.Artist;
+        _albumLabel.TooltipText = MusicResource.Album;
     }
     public override void _GuiInput(InputEvent @event)
     {
