@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=28 format=3 uid="uid://35346j02g11j"]
+[gd_resource type="Theme" load_steps=29 format=3 uid="uid://35346j02g11j"]
 
 [ext_resource type="Texture2D" uid="uid://bsh2vbxkbogku" path="res://assets/icons/Grabber.png" id="1_biaja"]
 [ext_resource type="Texture2D" uid="uid://h78hlqqd3oxi" path="res://assets/icons/GrabberHighlight.png" id="2_vnc4k"]
@@ -78,6 +78,12 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 anti_aliasing = false
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qjhx0"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_vnc4k"]
 color = Color(0.545098, 0.47451, 0.513726, 1)
@@ -271,6 +277,10 @@ Button/styles/focus = SubResource("StyleBoxFlat_0ahyh")
 Button/styles/hover = SubResource("StyleBoxFlat_7rtxy")
 Button/styles/normal = SubResource("StyleBoxFlat_u427p")
 Button/styles/pressed = SubResource("StyleBoxFlat_hofdy")
+CurrentSongEntryLabel/base_type = &"Label"
+CurrentSongEntryLabel/colors/font_color = Color(0.97, 0.850367, 0.776, 1)
+CurrentSongEntryLabel/font_sizes/font_size = 8
+CurrentSongEntryLabel/styles/normal = SubResource("StyleBoxEmpty_qjhx0")
 ErrorLabel/base_type = &"Label"
 ErrorLabel/colors/font_color = Color(1, 0, 0, 1)
 HSeparator/styles/separator = SubResource("StyleBoxLine_vnc4k")

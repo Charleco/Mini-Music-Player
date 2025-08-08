@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://jsrek7nd7ek4"]
+[gd_scene load_steps=6 format=3 uid="uid://jsrek7nd7ek4"]
 
 [ext_resource type="Theme" uid="uid://35346j02g11j" path="res://resources/main_theme.tres" id="1_3w5lx"]
 [ext_resource type="Texture2D" uid="uid://dqyhqa2hfcgbx" path="res://assets/icons/CloseIcon.png" id="2_60f6f"]
 [ext_resource type="Script" uid="uid://7fm74ossgtb8" path="res://scripts/PreferencesMenu.cs" id="2_i2olb"]
+[ext_resource type="Texture2D" uid="uid://b7mgvkqrduarm" path="res://assets/icons/PreferencesIcon.png" id="3_ytk8i"]
 [ext_resource type="Texture2D" uid="uid://ck2t2yg36by4e" path="res://assets/icons/DirectoryIcon.png" id="4_rfvy8"]
 
 [node name="PreferencesMenu" type="Window" node_paths=PackedStringArray("_defaultDirectory")]
@@ -49,6 +50,16 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
+self_modulate = Color(0.709804, 0.619608, 0.564706, 1)
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_ytk8i")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
 layout_mode = 2

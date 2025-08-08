@@ -25,4 +25,20 @@ public partial class MusicEntry : HBoxContainer
             SigBus.EmitSignal(nameof(SigBus.MusicEntrySelected), MusicResource);
         }
     }
+
+    public void ChangeLabels(bool isCurrent)
+    {
+        if (isCurrent)
+        {
+            _nameLabel.ThemeTypeVariation = "CurrentSongEntryLabel";
+            _artistLabel.ThemeTypeVariation = "CurrentSongEntryLabel";
+            _albumLabel.ThemeTypeVariation = "CurrentSongEntryLabel";
+        }
+        else
+        {
+            _nameLabel.ThemeTypeVariation = "MusicEntryLabel";
+            _artistLabel.ThemeTypeVariation = "MusicEntryLabel";
+            _albumLabel.ThemeTypeVariation = "MusicEntryLabel";
+        }
+    }
 }

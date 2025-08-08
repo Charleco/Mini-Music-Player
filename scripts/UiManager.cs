@@ -60,6 +60,7 @@ public partial class UiManager : Node
         private Vector2 _visibleMousePosition;
         private float _previousVolume;
         
+        private MusicEntry _currentMusicEntry;
         public override void _Ready()
         {
             SigBus.SendNotification += (type,message,duration) => SendNotification(type,message,duration);
@@ -124,6 +125,15 @@ public partial class UiManager : Node
 
         private void SongChanged(MusicResource resource)
         {
+            if (_currentMusicEntry != null && GodotObject.IsInstanceValid(_currentMusicEntry))
+            {
+                _currentMusicEntry.ChangeLabels(false);
+            }
+            _currentMusicEntry = FindMusicEntry(resource);
+            if (_currentMusicEntry != null)
+            {
+                _currentMusicEntry.ChangeLabels(true);
+            }
             _durationSlider.MaxValue = Player.Stream.GetLength();
             int totalSeconds = ((int)(Player.Stream.GetLength()));
             int seconds = (totalSeconds % 60);
@@ -151,6 +161,18 @@ public partial class UiManager : Node
                 _volumeButton.TooltipText = "Mute";
             }
         }
+
+        private MusicEntry FindMusicEntry(MusicResource resource)
+        {
+            foreach (var child in _musicListContainer.GetChildren())
+            {
+                if (child is MusicEntry musicEntry && musicEntry.MusicResource == resource)
+                {
+                    return musicEntry;
+                }
+            }
+            return null;
+        }
         private void SetVolume(float volume)
         {
             AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Master"), Mathf.LinearToDb(volume));
@@ -169,6 +191,7 @@ public partial class UiManager : Node
                     _volumeButton.Icon = _volume0Icon;
                     break;
             }
+            _volumeSlider.TooltipText = $"Volume: {Mathf.RoundToInt(volume * 100)}%";
         }
         private void MinimizeButtonPressed()
         {

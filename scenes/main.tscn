@@ -127,6 +127,13 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("20_pm3ni")
+expand_mode = 3
+stretch_mode = 5
+
 [node name="DirectoryButton" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
