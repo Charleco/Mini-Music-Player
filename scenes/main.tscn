@@ -29,6 +29,7 @@
 
 [node name="Main" type="Control"]
 texture_filter = 1
+texture_repeat = 1
 clip_contents = true
 layout_mode = 3
 anchors_preset = 15

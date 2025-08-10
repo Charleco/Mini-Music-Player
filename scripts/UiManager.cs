@@ -84,6 +84,7 @@ public partial class UiManager : Node
             _durationSlider.SetValueNoSignal(0.0);
             _currentSongTimeLabel.Text = "0:00";
             _songTimeLabel.Text = "0:00";
+            _playPauseButton.Icon = _playButtonTexture;
         }
         public override void _Process(double delta)
         {

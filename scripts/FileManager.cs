@@ -48,13 +48,13 @@ public partial class FileManager : Node
                         if (mimeType.Contains("jpeg") || mimeType.Contains("jpg"))
                         {
                             albumImage.LoadJpgFromBuffer(pictureData);
-                            albumImage.Resize(200, 200);
+                            albumImage.Resize(200, 200, Image.Interpolation.Lanczos);
                             albumArt = ImageTexture.CreateFromImage(albumImage);
                         }
                         else if (mimeType.Contains("png"))
                         {
                             albumImage.LoadPngFromBuffer(pictureData);
-                            albumImage.Resize(200, 200);
+                            albumImage.Resize(200, 200, Image.Interpolation.Lanczos);
                             albumArt = ImageTexture.CreateFromImage(albumImage);
                         }
                         else

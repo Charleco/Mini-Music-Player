@@ -20,6 +20,7 @@ script = ExtResource("1_ogyyh")
 [node name="SongNameLabel" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 theme_type_variation = &"MusicEntryLabel"
 text = "test"
 horizontal_alignment = 1
@@ -30,6 +31,7 @@ text_overrun_behavior = 3
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 theme_type_variation = &"MusicEntryLabel"
 text = "test"
 horizontal_alignment = 1
@@ -39,6 +41,7 @@ text_overrun_behavior = 3
 [node name="AlbumLabel" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 theme_type_variation = &"MusicEntryLabel"
 text = "test"
 horizontal_alignment = 1
