@@ -56,6 +56,8 @@ public partial class UiManager : Node
         private Texture2D _playButtonTexture;
         [Export]
         private Texture2D _pauseButtonTexture;
+        [Export]
+        private Texture2D _defaultAlbumArtTexture;
 
         private Vector2 _visibleMousePosition;
         private float _previousVolume;
@@ -71,6 +73,17 @@ public partial class UiManager : Node
             SetVolume(0);
             _volumeButton.TooltipText = "Unmute";
             _previousVolume = 0.05f;
+        }
+
+        private void NewDirectorySelected()
+        {
+            _songNameLabel.Text = "";
+            _artistLabel.Text =  "";
+            _albumLabel.Text =  "";
+            _albumArtRect.Texture = _defaultAlbumArtTexture;
+            _durationSlider.SetValueNoSignal(0.0);
+            _currentSongTimeLabel.Text = "0:00";
+            _songTimeLabel.Text = "0:00";
         }
         public override void _Process(double delta)
         {
@@ -192,6 +205,10 @@ public partial class UiManager : Node
                     break;
             }
             _volumeSlider.TooltipText = $"Volume: {Mathf.RoundToInt(volume * 100)}%";
+            if (volume > 0)
+                _volumeButton.TooltipText = "Mute";
+            else
+                _volumeButton.TooltipText = "Unmute";
         }
         private void MinimizeButtonPressed()
         {
@@ -211,7 +228,6 @@ public partial class UiManager : Node
         }
         public override void _Input(InputEvent @event)
         {
-            //FIXME: Some issue with rapid right clicks and no motion so _visMousePos isnt being set, right click released set mouse pos to center
             base._Input(@event);
             if(@event is InputEventMouseMotion mouseMotion && Input.IsMouseButtonPressed(MouseButton.Right))
             {
@@ -222,7 +238,6 @@ public partial class UiManager : Node
                 }
                 GetTree().GetRoot().Position += (Vector2I)mouseMotion.Relative;
             }
-
             if (Input.MouseMode == Input.MouseModeEnum.Captured && !Input.IsMouseButtonPressed(MouseButton.Right))
             {
                 Input.MouseMode = Input.MouseModeEnum.Visible;

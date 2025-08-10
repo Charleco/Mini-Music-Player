@@ -34,7 +34,7 @@ public partial class AudioManager : Node
     private Texture2D _noShuffleButtonTexture;
     
     private AudioStreamPlayer _player;
-    private List<MusicResource> _queue = new List<MusicResource>();
+    private List<MusicResource> _queue = new();
     private bool _shuffleToggle;
     private MusicResource _nextSong;
     private MusicResource _currentSong;
@@ -56,6 +56,14 @@ public partial class AudioManager : Node
         _currentTrackRepeat = TrackRepeat.NoRepeat;
         _shuffleToggle = false;
     }
+
+    private void NewDirectorySelected()
+    {
+        _player.Stream = null;
+        _currentSong = null;
+        _queueIndex = 0;
+        _queue.Clear();
+    }
     
     //user clicks music entry, starts new queue
     private void MusicEntrySelected(MusicResource resource)
@@ -69,7 +77,6 @@ public partial class AudioManager : Node
     {
             var startIndex = Instance.MusicResources.IndexOf(resource);
             _currentSong = resource;
-        
             _queue.Clear();
             _queue.AddRange(Instance.MusicResources.GetRange(startIndex, Instance.MusicResources.Count - startIndex));
             if (_currentTrackRepeat == TrackRepeat.PlaylistRepeat && startIndex > 0 || _shuffleToggle)
@@ -168,7 +175,9 @@ public partial class AudioManager : Node
     private void _playPauseButtonPressed()
     {
         if (_player.Stream == null)
+        {
             return;
+        }
         if (_player.IsPlaying())
         {
             _player.StreamPaused = true;
@@ -186,7 +195,9 @@ public partial class AudioManager : Node
     private void _skipBackButtonPressed()
     {
         if (_player.Stream == null)
+        {
             return;
+        }
         if (_player.GetPlaybackPosition() > 1 )
         {
             _player.Seek(0.0f);
@@ -213,15 +224,19 @@ public partial class AudioManager : Node
     private void _skipForwardButtonPressed()
     {
         if (_player.Stream == null)
+        {
             return;
+        }
         PlayNextSong();
         if (_currentTrackRepeat == TrackRepeat.SingleTrackRepeat)
+        {
             SetupQueue(_currentSong);
+        }
         else
         {
             if (_queueIndex < _queue.Count - 1)
             {
-                SetupQueue(_queue[_queueIndex+1]);
+                SetupQueue(_queue[_queueIndex]);
             }
         }
     }
@@ -263,6 +278,5 @@ public partial class AudioManager : Node
         {
             SetupQueue(_currentSong);
         }
-        
     }
 }

@@ -99,6 +99,7 @@ _volume3Icon = ExtResource("17_vxglm")
 _playPauseButton = NodePath("../PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/HBoxContainer3/PlayPauseButton")
 _playButtonTexture = ExtResource("18_0ld40")
 _pauseButtonTexture = ExtResource("8_gqmmt")
+_defaultAlbumArtTexture = ExtResource("20_pm3ni")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -332,6 +333,8 @@ size_flags_horizontal = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2"]
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2/HBoxContainer"]
 layout_mode = 2
@@ -384,6 +387,7 @@ alignment = 2
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer3"]
 layout_mode = 2
+size_flags_horizontal = 6
 alignment = 2
 
 [node name="VolumeButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer3/HBoxContainer4"]
@@ -412,6 +416,8 @@ step = 0.005
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer3"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 alignment = 2
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer3/HBoxContainer2"]
@@ -484,6 +490,8 @@ transient = false
 popup_window = false
 
 [connection signal="finished" from="AudioManager/AudioStreamPlayer" to="AudioManager" method="PlayNextSong"]
+[connection signal="dir_selected" from="FileManager/FileDialog" to="AudioManager" method="NewDirectorySelected" unbinds=1]
+[connection signal="dir_selected" from="FileManager/FileDialog" to="UIManager" method="NewDirectorySelected" unbinds=1]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer/DirectoryButton" to="FileManager" method="ShowFileDialog"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer/PreferencesButton" to="UIManager" method="PreferencesButtonPressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer/ShuffleButton" to="AudioManager" method="_shuffleButtonPressed"]
