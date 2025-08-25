@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using static Global;
 using static SignalBus;
 public partial class FileManager : Node
@@ -20,10 +21,16 @@ public partial class FileManager : Node
         _lastDirectoryPath = "";
     }
 
-    private void NewDirectorySelected(string directory)
+    private async void NewDirectorySelected(string directory)
     {
         _firstDirectory = false;
         _lastDirectoryPath = directory;
+        var result = await Task.Run(() => GetMusicFiles(directory));
+        UiManager.Call("PopulateMusicList");
+    }
+
+    private async Task<int> GetMusicFiles(string directory)
+    {
         var openDir = DirAccess.Open(directory);
         if (openDir != null)
         {
@@ -101,8 +108,9 @@ public partial class FileManager : Node
         {
             Instance.MusicResources.Sort((resource, musicResource) => resource.Name.CompareTo(musicResource.Name));
         }
-        UiManager.Call("PopulateMusicList");
+        return 0;
     }
+    
     
     private void ShowFileDialog()
     {
