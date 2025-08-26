@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dfwp3xkphi03d"]
+[gd_scene load_steps=3 format=3 uid="uid://dfwp3xkphi03d"]
 
 [ext_resource type="Script" uid="uid://8m4fe0c6eyma" path="res://scripts/MusicEntry.cs" id="1_ogyyh"]
+[ext_resource type="PackedScene" uid="uid://cetghkr106g0u" path="res://scenes/UiAnimationComponent.tscn" id="2_6vp4x"]
 
 [node name="MusicEntry" type="HBoxContainer"]
 anchors_preset = 14
@@ -11,6 +12,7 @@ offset_top = -7.0
 offset_bottom = 7.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1e-05, 1e-05)
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_type_variation = &"MusicEntryHbox"
@@ -47,3 +49,17 @@ text = "test"
 horizontal_alignment = 1
 vertical_alignment = 1
 text_overrun_behavior = 3
+
+[node name="UiAnimationComponent" parent="." instance=ExtResource("2_6vp4x")]
+Trigger = 7
+PropertyTween = 1
+TweenEaseType = 2
+_tweenDuration = 0.05
+_scaleProp = Vector2(1.025, 1.025)
+
+[node name="UiAnimationComponent2" parent="." instance=ExtResource("2_6vp4x")]
+Trigger = 8
+PropertyTween = 1
+TweenEaseType = 2
+_tweenDuration = 0.05
+_scaleProp = Vector2(1, 1)

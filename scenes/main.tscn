@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bbp3ql0w1h2xw"]
+[gd_scene load_steps=28 format=3 uid="uid://bbp3ql0w1h2xw"]
 
 [ext_resource type="Theme" uid="uid://35346j02g11j" path="res://resources/main_theme.tres" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://dts5ls7atfqlx" path="res://scripts/UiManager.cs" id="2_0wfyh"]
@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://cybbld4blqit3" path="res://assets/icons/AppIcon.png" id="20_pm3ni"]
 [ext_resource type="Texture2D" uid="uid://bdtyqkk0p8pwr" path="res://assets/icons/SkipBackIcon.png" id="20_yc10j"]
 [ext_resource type="Texture2D" uid="uid://8mqpo5xhu344" path="res://assets/icons/SkipForwardIcon.png" id="21_jscy8"]
+[ext_resource type="PackedScene" uid="uid://cetghkr106g0u" path="res://scenes/UiAnimationComponent.tscn" id="25_vxglm"]
 [ext_resource type="PackedScene" uid="uid://jsrek7nd7ek4" path="res://scenes/PreferencesMenu.tscn" id="26_2wyq8"]
 
 [node name="Main" type="Control"]
@@ -147,6 +148,15 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
+[node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer/DirectoryButton" instance=ExtResource("25_vxglm")]
+Trigger = 5
+PropertyTween = 1
+TweenEaseType = 1
+_tweenDuration = 0.05
+_reverseAnim = true
+_reverseTweenDuration = 0.05
+_scaleProp = Vector2(1.1, 1.1)
+
 [node name="PreferencesButton" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
@@ -158,6 +168,15 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
+[node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer/PreferencesButton" instance=ExtResource("25_vxglm")]
+Trigger = 5
+PropertyTween = 1
+TweenEaseType = 1
+_tweenDuration = 0.05
+_reverseAnim = true
+_reverseTweenDuration = 0.05
+_scaleProp = Vector2(1.1, 1.1)
+
 [node name="ShuffleButton" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
@@ -168,6 +187,15 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
+[node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer/ShuffleButton" instance=ExtResource("25_vxglm")]
+Trigger = 5
+PropertyTween = 1
+TweenEaseType = 1
+_tweenDuration = 0.05
+_reverseAnim = true
+_reverseTweenDuration = 0.05
+_scaleProp = Vector2(1.1, 1.1)
+
 [node name="TrackRepeatButton" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
@@ -177,6 +205,15 @@ icon = ExtResource("11_jkv2x")
 flat = true
 icon_alignment = 1
 expand_icon = true
+
+[node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer/TrackRepeatButton" instance=ExtResource("25_vxglm")]
+Trigger = 5
+PropertyTween = 1
+TweenEaseType = 1
+_tweenDuration = 0.05
+_reverseAnim = true
+_reverseTweenDuration = 0.05
+_scaleProp = Vector2(1.1, 1.1)
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
@@ -198,6 +235,15 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
+[node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2/MinimizeButton" instance=ExtResource("25_vxglm")]
+Trigger = 5
+PropertyTween = 1
+TweenEaseType = 1
+_tweenDuration = 0.05
+_reverseAnim = true
+_reverseTweenDuration = 0.05
+_scaleProp = Vector2(1.1, 1.1)
+
 [node name="CloseButton" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
@@ -208,6 +254,15 @@ icon = ExtResource("10_choun")
 flat = true
 icon_alignment = 1
 expand_icon = true
+
+[node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2/CloseButton" instance=ExtResource("25_vxglm")]
+Trigger = 5
+PropertyTween = 1
+TweenEaseType = 1
+_tweenDuration = 0.05
+_reverseAnim = true
+_reverseTweenDuration = 0.05
+_scaleProp = Vector2(1.1, 1.1)
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -268,18 +323,21 @@ alignment = 2
 [node name="SongNameLabel" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/MarginContainer/ArtAspectRatioContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 horizontal_alignment = 1
 vertical_alignment = 1
 text_overrun_behavior = 4
 
 [node name="ArtistLabel" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/MarginContainer/ArtAspectRatioContainer/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 1
 horizontal_alignment = 1
 vertical_alignment = 1
 text_overrun_behavior = 4
 
 [node name="AlbumLabel" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/HBoxContainer2/HBoxContainer/PanelContainer/MarginContainer/ArtAspectRatioContainer/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 1
 horizontal_alignment = 1
 vertical_alignment = 1
 text_overrun_behavior = 4
@@ -361,6 +419,24 @@ icon = ExtResource("20_yc10j")
 icon_alignment = 1
 expand_icon = true
 
+[node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/HBoxContainer3/SkipBckButton" instance=ExtResource("25_vxglm")]
+Trigger = 5
+PropertyTween = 1
+TweenEaseType = 1
+_tweenDuration = 0.05
+_reverseAnim = true
+_reverseTweenDuration = 0.05
+_scaleProp = Vector2(1.1, 1.1)
+
+[node name="UiAnimationComponent2" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/HBoxContainer3/SkipBckButton" instance=ExtResource("25_vxglm")]
+Trigger = 7
+PropertyTween = 1
+TweenEaseType = 1
+_tweenDuration = 0.05
+_reverseAnim = true
+_reverseTweenDuration = 0.05
+_scaleProp = Vector2(1.05, 1.05)
+
 [node name="PlayPauseButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
@@ -371,6 +447,24 @@ icon = ExtResource("18_0ld40")
 icon_alignment = 1
 expand_icon = true
 
+[node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/HBoxContainer3/PlayPauseButton" instance=ExtResource("25_vxglm")]
+Trigger = 5
+PropertyTween = 1
+TweenEaseType = 1
+_tweenDuration = 0.05
+_reverseAnim = true
+_reverseTweenDuration = 0.05
+_scaleProp = Vector2(1.1, 1.1)
+
+[node name="UiAnimationComponent2" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/HBoxContainer3/PlayPauseButton" instance=ExtResource("25_vxglm")]
+Trigger = 7
+PropertyTween = 1
+TweenEaseType = 1
+_tweenDuration = 0.05
+_reverseAnim = true
+_reverseTweenDuration = 0.05
+_scaleProp = Vector2(1.05, 1.05)
+
 [node name="SkipFrwdButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
@@ -380,6 +474,24 @@ focus_mode = 0
 icon = ExtResource("21_jscy8")
 icon_alignment = 1
 expand_icon = true
+
+[node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/HBoxContainer3/SkipFrwdButton" instance=ExtResource("25_vxglm")]
+Trigger = 5
+PropertyTween = 1
+TweenEaseType = 1
+_tweenDuration = 0.05
+_reverseAnim = true
+_reverseTweenDuration = 0.05
+_scaleProp = Vector2(1.1, 1.1)
+
+[node name="UiAnimationComponent2" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/CenterContainer/HBoxContainer3/SkipFrwdButton" instance=ExtResource("25_vxglm")]
+Trigger = 7
+PropertyTween = 1
+TweenEaseType = 1
+_tweenDuration = 0.05
+_reverseAnim = true
+_reverseTweenDuration = 0.05
+_scaleProp = Vector2(1.05, 1.05)
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -400,6 +512,24 @@ icon = ExtResource("12_eb6dy")
 flat = true
 icon_alignment = 1
 expand_icon = true
+
+[node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer3/HBoxContainer4/VolumeButton" instance=ExtResource("25_vxglm")]
+Trigger = 5
+PropertyTween = 1
+TweenEaseType = 1
+_tweenDuration = 0.05
+_reverseAnim = true
+_reverseTweenDuration = 0.05
+_scaleProp = Vector2(1.1, 1.1)
+
+[node name="UiAnimationComponent2" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer3/HBoxContainer4/VolumeButton" instance=ExtResource("25_vxglm")]
+Trigger = 7
+PropertyTween = 1
+TweenEaseType = 1
+_tweenDuration = 0.05
+_reverseAnim = true
+_reverseTweenDuration = 0.05
+_scaleProp = Vector2(1.05, 1.05)
 
 [node name="CenterContainer" type="CenterContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MainMarginContainer/VBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer3/HBoxContainer4"]
 layout_mode = 2
