@@ -88,23 +88,21 @@ public partial class UiManager : Node
         }
         public override void _Process(double delta)
         {
-            if (Player.Stream != null)
-            {
-                _durationSlider.SetValueNoSignal(Player.GetPlaybackPosition());
-                int totalSeconds = ((int)(Player.GetPlaybackPosition()));
-                int seconds = (totalSeconds % 60);
-                int minutes = totalSeconds / 60;
-                _currentSongTimeLabel.Text = $"{minutes}:{seconds:D2}";
-            }
+            if (Player.Stream == null) return;
+            _durationSlider.SetValueNoSignal(Player.GetPlaybackPosition());
+            var totalSeconds = ((int)(Player.GetPlaybackPosition()));
+            var seconds = (totalSeconds % 60);
+            var minutes = totalSeconds / 60;
+            _currentSongTimeLabel.Text = $"{minutes}:{seconds:D2}";
         }
 
-        public void PopulateMusicList()
+        private void PopulateMusicList()
         {
             foreach (var child in _musicListContainer.GetChildren())
             {
                 child.QueueFree();
             }
-
+            
             foreach (var resource in Instance.MusicResources)
             {
                 var entry = _musicEntryScene.Instantiate() as MusicEntry;
@@ -123,6 +121,8 @@ public partial class UiManager : Node
                 SendNotification(1, "No Music Files Found", 1.0f);
             }
             _musicListScrollContainer.SetDeferred("scroll_vertical",0);
+            var musicCount = Instance.MusicResources.Count;
+            SigBus.EmitSignal(nameof(SignalBus.SendNotification), 0, $"Found {musicCount} files", 1.5);
         }
 
         private void PreferencesButtonPressed()
@@ -149,9 +149,9 @@ public partial class UiManager : Node
                 _currentMusicEntry.ChangeLabels(true);
             }
             _durationSlider.MaxValue = Player.Stream.GetLength();
-            int totalSeconds = ((int)(Player.Stream.GetLength()));
-            int seconds = (totalSeconds % 60);
-            int minutes = totalSeconds / 60;
+            var totalSeconds = ((int)(Player.Stream.GetLength()));
+            var seconds = (totalSeconds % 60);
+            var minutes = totalSeconds / 60;
             _songTimeLabel.Text = $"{minutes}:{seconds:D2}";
             //displaying song information
             _songNameLabel.Text = resource.Name;

@@ -25,6 +25,7 @@ public partial class FileManager : Node
     {
         _firstDirectory = false;
         _lastDirectoryPath = directory;
+        SigBus.EmitSignal(nameof(SignalBus.SendNotification), 0, "Fetching music files...", 1.5);
         var result = await Task.Run(() => GetMusicFiles(directory));
         UiManager.Call("PopulateMusicList");
     }
@@ -105,9 +106,7 @@ public partial class FileManager : Node
         if(!Instance.MusicListAlphabeticalSort)
             Instance.MusicResources.Sort((resource, musicResource) => resource.TrackNumber.CompareTo(musicResource.TrackNumber));
         else
-        {
             Instance.MusicResources.Sort((resource, musicResource) => resource.Name.CompareTo(musicResource.Name));
-        }
         return 0;
     }
     

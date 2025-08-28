@@ -22,7 +22,7 @@ public partial class PreferencesMenu : Window
     private void LoadPreferences()
     {
         _configFile = new ConfigFile();
-        Error err = _configFile.Load("user://pref.cfg");
+        var err = _configFile.Load("user://pref.cfg");
         if (err != Error.Ok)
         {
             return;
@@ -35,7 +35,7 @@ public partial class PreferencesMenu : Window
     }
     private void SetPosition()
     {
-        this.Position = GetTree().GetRoot().Position;
+        Position = GetTree().GetRoot().Position;
     }
     public override void _Input(InputEvent @event)
     {
@@ -47,7 +47,7 @@ public partial class PreferencesMenu : Window
                 _visibleMousePosition = GetViewport().GetMousePosition();
                 Input.MouseMode = Input.MouseModeEnum.Captured;
             }
-            this.Position += (Vector2I)mouseMotion.Relative;
+            Position += (Vector2I)mouseMotion.Relative;
         }
 
         if (Input.MouseMode == Input.MouseModeEnum.Captured && !Input.IsMouseButtonPressed(MouseButton.Right))
@@ -88,16 +88,7 @@ public partial class PreferencesMenu : Window
 
     private void SortingButtonPressed(int sortingOrder)
     {
-        //sort by name
-        if (sortingOrder == 0)
-        {
-            Instance.MusicListAlphabeticalSort = true;
-        }
-        //sort by tracknumber
-        else if (sortingOrder == 1)
-        {
-            Instance.MusicListAlphabeticalSort = false;
-        }
+        Instance.MusicListAlphabeticalSort = (sortingOrder == 0);
         _configFile.SetValue("Preferences", "DefaultSort", Instance.MusicListAlphabeticalSort);
     }
 

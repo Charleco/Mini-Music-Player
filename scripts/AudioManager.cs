@@ -39,14 +39,14 @@ public partial class AudioManager : Node
     private MusicResource _nextSong;
     private MusicResource _currentSong;
     private int _queueIndex;
-    private Random _random = new Random();
+    private readonly Random _random = new();
     private enum TrackRepeat
     {
         NoRepeat,
         SingleTrackRepeat,
         PlaylistRepeat
     }
-    TrackRepeat _currentTrackRepeat;
+    private TrackRepeat _currentTrackRepeat;
     
 
     public override void _Ready()
@@ -174,10 +174,7 @@ public partial class AudioManager : Node
     }
     private void _playPauseButtonPressed()
     {
-        if (_player.Stream == null)
-        {
-            return;
-        }
+        if (_player.Stream == null) return;
         if (_player.IsPlaying())
         {
             _player.StreamPaused = true;
@@ -194,10 +191,7 @@ public partial class AudioManager : Node
     }
     private void _skipBackButtonPressed()
     {
-        if (_player.Stream == null)
-        {
-            return;
-        }
+        if (_player.Stream == null) return;
         if (_player.GetPlaybackPosition() > 1 )
         {
             _player.Seek(0.0f);
@@ -223,10 +217,7 @@ public partial class AudioManager : Node
     }
     private void _skipForwardButtonPressed()
     {
-        if (_player.Stream == null)
-        {
-            return;
-        }
+        if (_player.Stream == null) return;
         PlayNextSong();
         if (_currentTrackRepeat == TrackRepeat.SingleTrackRepeat)
         {
@@ -265,14 +256,7 @@ public partial class AudioManager : Node
     }
     private void _shuffleButtonPressed()
     {
-        if(_shuffleToggle)
-        {
-            _shuffleButton.Icon = _noShuffleButtonTexture;
-        }
-        else
-        {
-            _shuffleButton.Icon = _shuffleButtonTexture;
-        }
+        _shuffleButton.Icon = _shuffleToggle ? _noShuffleButtonTexture : _shuffleButtonTexture;
         _shuffleToggle = !_shuffleToggle;
         if (_player.Stream != null)
         {
