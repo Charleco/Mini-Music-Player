@@ -88,9 +88,11 @@ content_margin_bottom = 4.0
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_vnc4k"]
 color = Color(0.545098, 0.47451, 0.513726, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2nojw"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qjhx0"]
+bg_color = Color(0.298039, 0.329412, 0.427451, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ols5k"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d8x3d"]
+bg_color = Color(0.298039, 0.329412, 0.427451, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_83bj2"]
 content_margin_left = 2.0
@@ -277,7 +279,7 @@ Button/styles/hover = SubResource("StyleBoxFlat_7rtxy")
 Button/styles/normal = SubResource("StyleBoxFlat_u427p")
 Button/styles/pressed = SubResource("StyleBoxFlat_hofdy")
 CurrentSongEntryLabel/base_type = &"Label"
-CurrentSongEntryLabel/colors/font_color = Color(0.97, 0.850367, 0.776, 1)
+CurrentSongEntryLabel/colors/font_color = Color(0.298039, 0.329412, 0.427451, 1)
 CurrentSongEntryLabel/font_sizes/font_size = 8
 CurrentSongEntryLabel/styles/normal = SubResource("StyleBoxEmpty_qjhx0")
 ErrorLabel/base_type = &"Label"
@@ -286,8 +288,8 @@ HSeparator/styles/separator = SubResource("StyleBoxLine_vnc4k")
 HSlider/constants/center_grabber = 1
 HSlider/icons/grabber = ExtResource("1_biaja")
 HSlider/icons/grabber_highlight = ExtResource("2_vnc4k")
-HSlider/styles/grabber_area = SubResource("StyleBoxEmpty_2nojw")
-HSlider/styles/grabber_area_highlight = SubResource("StyleBoxEmpty_ols5k")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_qjhx0")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_d8x3d")
 HSlider/styles/slider = SubResource("StyleBoxFlat_83bj2")
 HeaderButton/base_type = &"Button"
 HeaderPanel/base_type = &"PanelContainer"

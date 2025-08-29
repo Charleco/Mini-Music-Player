@@ -63,3 +63,11 @@ PropertyTween = 1
 TweenEaseType = 2
 _tweenDuration = 0.05
 _scaleProp = Vector2(1, 1)
+
+[node name="UiAnimationComponent3" parent="." instance=ExtResource("2_6vp4x")]
+Trigger = 7
+PropertyTween = 2
+_tweenDuration = 0.05
+_reverseAnim = true
+_reverseTweenDuration = 0.05
+_modulateColorProp = Color(1.155, 1.274, 1.417, 1)
