@@ -118,7 +118,7 @@ layout_mode = 2
 [node name="HeaderPanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 0.09
+size_flags_stretch_ratio = 0.1
 theme_type_variation = &"HeaderPanel"
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/HeaderPanelContainer"]
@@ -129,6 +129,7 @@ layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(32, 32)
@@ -137,10 +138,19 @@ texture = ExtResource("20_pm3ni")
 expand_mode = 3
 stretch_mode = 5
 
+[node name="UiAnimationComponent2" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer/TextureRect" instance=ExtResource("25_vxglm")]
+Trigger = 7
+PropertyTween = 1
+TweenEaseType = 1
+_tweenDuration = 0.05
+_reverseAnim = true
+_reverseTweenDuration = 0.05
+_scaleProp = Vector2(1.1, 1.1)
+_minimumSizeProp = Vector2(33, 33)
+
 [node name="DirectoryButton" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-size_flags_horizontal = 3
 tooltip_text = "Directory"
 focus_mode = 0
 icon = ExtResource("7_o6xl0")
@@ -155,12 +165,21 @@ TweenEaseType = 1
 _tweenDuration = 0.05
 _reverseAnim = true
 _reverseTweenDuration = 0.05
+_scaleProp = Vector2(1.2, 1.2)
+
+[node name="UiAnimationComponent2" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer/DirectoryButton" instance=ExtResource("25_vxglm")]
+Trigger = 7
+PropertyTween = 1
+TweenEaseType = 1
+_tweenDuration = 0.05
+_reverseAnim = true
+_reverseTweenDuration = 0.05
 _scaleProp = Vector2(1.1, 1.1)
+_minimumSizeProp = Vector2(33, 33)
 
 [node name="PreferencesButton" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-size_flags_horizontal = 3
 tooltip_text = "Preferences"
 focus_mode = 0
 icon = ExtResource("8_tipki")
@@ -170,6 +189,15 @@ expand_icon = true
 
 [node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer/PreferencesButton" instance=ExtResource("25_vxglm")]
 Trigger = 5
+PropertyTween = 1
+TweenEaseType = 1
+_tweenDuration = 0.05
+_reverseAnim = true
+_reverseTweenDuration = 0.05
+_scaleProp = Vector2(1.2, 1.2)
+
+[node name="UiAnimationComponent2" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer/PreferencesButton" instance=ExtResource("25_vxglm")]
+Trigger = 7
 PropertyTween = 1
 TweenEaseType = 1
 _tweenDuration = 0.05
@@ -194,6 +222,15 @@ TweenEaseType = 1
 _tweenDuration = 0.05
 _reverseAnim = true
 _reverseTweenDuration = 0.05
+_scaleProp = Vector2(1.2, 1.2)
+
+[node name="UiAnimationComponent2" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer/ShuffleButton" instance=ExtResource("25_vxglm")]
+Trigger = 7
+PropertyTween = 1
+TweenEaseType = 1
+_tweenDuration = 0.05
+_reverseAnim = true
+_reverseTweenDuration = 0.05
 _scaleProp = Vector2(1.1, 1.1)
 
 [node name="TrackRepeatButton" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
@@ -208,6 +245,15 @@ expand_icon = true
 
 [node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer/TrackRepeatButton" instance=ExtResource("25_vxglm")]
 Trigger = 5
+PropertyTween = 1
+TweenEaseType = 1
+_tweenDuration = 0.05
+_reverseAnim = true
+_reverseTweenDuration = 0.05
+_scaleProp = Vector2(1.2, 1.2)
+
+[node name="UiAnimationComponent2" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer/TrackRepeatButton" instance=ExtResource("25_vxglm")]
+Trigger = 7
 PropertyTween = 1
 TweenEaseType = 1
 _tweenDuration = 0.05
@@ -242,6 +288,15 @@ TweenEaseType = 1
 _tweenDuration = 0.05
 _reverseAnim = true
 _reverseTweenDuration = 0.05
+_scaleProp = Vector2(1.2, 1.2)
+
+[node name="UiAnimationComponent2" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2/MinimizeButton" instance=ExtResource("25_vxglm")]
+Trigger = 7
+PropertyTween = 1
+TweenEaseType = 1
+_tweenDuration = 0.05
+_reverseAnim = true
+_reverseTweenDuration = 0.05
 _scaleProp = Vector2(1.1, 1.1)
 
 [node name="CloseButton" type="Button" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2"]
@@ -257,6 +312,15 @@ expand_icon = true
 
 [node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2/CloseButton" instance=ExtResource("25_vxglm")]
 Trigger = 5
+PropertyTween = 1
+TweenEaseType = 1
+_tweenDuration = 0.05
+_reverseAnim = true
+_reverseTweenDuration = 0.05
+_scaleProp = Vector2(1.2, 1.2)
+
+[node name="UiAnimationComponent2" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2/CloseButton" instance=ExtResource("25_vxglm")]
+Trigger = 7
 PropertyTween = 1
 TweenEaseType = 1
 _tweenDuration = 0.05

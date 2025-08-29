@@ -87,7 +87,17 @@ TweenEaseType = 1
 _tweenDuration = 0.05
 _reverseAnim = true
 _reverseTweenDuration = 0.05
+_scaleProp = Vector2(1.2, 1.2)
+
+[node name="UiAnimationComponent2" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2/ExitButton" instance=ExtResource("5_7ovxv")]
+Trigger = 7
+PropertyTween = 1
+TweenEaseType = 1
+_tweenDuration = 0.05
+_reverseAnim = true
+_reverseTweenDuration = 0.05
 _scaleProp = Vector2(1.1, 1.1)
+_minimumSizeProp = Vector2(33, 33)
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -192,7 +202,17 @@ TweenEaseType = 1
 _tweenDuration = 0.05
 _reverseAnim = true
 _reverseTweenDuration = 0.05
+_scaleProp = Vector2(1.2, 1.2)
+
+[node name="UiAnimationComponent2" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer/DefaultDirectoryButton" instance=ExtResource("5_7ovxv")]
+Trigger = 7
+PropertyTween = 1
+TweenEaseType = 1
+_tweenDuration = 0.05
+_reverseAnim = true
+_reverseTweenDuration = 0.05
 _scaleProp = Vector2(1.1, 1.1)
+_minimumSizeProp = Vector2(33, 33)
 
 [node name="LineEdit" type="LineEdit" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
 layout_mode = 2
@@ -264,7 +284,7 @@ TweenEaseType = 1
 _tweenDuration = 0.05
 _reverseAnim = true
 _reverseTweenDuration = 0.05
-_scaleProp = Vector2(1.1, 1.1)
+_scaleProp = Vector2(1.2, 1.2)
 
 [node name="Button" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
@@ -280,7 +300,7 @@ TweenEaseType = 1
 _tweenDuration = 0.05
 _reverseAnim = true
 _reverseTweenDuration = 0.05
-_scaleProp = Vector2(1.1, 1.1)
+_scaleProp = Vector2(1.2, 1.2)
 
 [node name="FileDialog" type="FileDialog" parent="."]
 title = "Open a Directory"
