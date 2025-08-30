@@ -67,25 +67,13 @@ public partial class UiManager : Node
         {
             SigBus.SendNotification += (type,message,duration) => SendNotification(type,message,duration);
             SigBus.SongChanged += (resource) => SongChanged(resource);
-            
             _durationSlider.ValueChanged += (value) => Player.Seek((float)value);
             _volumeSlider.ValueChanged += (value) => SetVolume((float)value);
             SetVolume(0);
             _volumeButton.TooltipText = "Unmute";
             _previousVolume = 0.05f;
         }
-
-        private void NewDirectorySelected()
-        {
-            _songNameLabel.Text = "";
-            _artistLabel.Text =  "";
-            _albumLabel.Text =  "";
-            _albumArtRect.Texture = _defaultAlbumArtTexture;
-            _durationSlider.SetValueNoSignal(0.0);
-            _currentSongTimeLabel.Text = "0:00";
-            _songTimeLabel.Text = "0:00";
-            _playPauseButton.Icon = _playButtonTexture;
-        }
+        
         public override void _Process(double delta)
         {
             if (Player.Stream == null) return;
@@ -95,14 +83,22 @@ public partial class UiManager : Node
             var minutes = totalSeconds / 60;
             _currentSongTimeLabel.Text = $"{minutes}:{seconds:D2}";
         }
+        private void NewDirectorySelected()
+        {
+            foreach (var child in _musicListContainer.GetChildren())
+                child.QueueFree();
+            _songNameLabel.Text = "";
+            _artistLabel.Text =  "";
+            _albumLabel.Text =  "";
+            _albumArtRect.Texture = _defaultAlbumArtTexture;
+            _durationSlider.SetValueNoSignal(0.0);
+            _currentSongTimeLabel.Text = "0:00";
+            _songTimeLabel.Text = "0:00";
+            _playPauseButton.Icon = _playButtonTexture;
+        }
 
         private void PopulateMusicList()
         {
-            foreach (var child in _musicListContainer.GetChildren())
-            {
-                child.QueueFree();
-            }
-            
             foreach (var resource in Instance.MusicResources)
             {
                 var entry = _musicEntryScene.Instantiate() as MusicEntry;
@@ -128,26 +124,17 @@ public partial class UiManager : Node
         private void PreferencesButtonPressed()
         {
             if (_preferencesWindow.IsVisible())
-            {
                 _preferencesWindow.Hide();
-            }
             else
-            {
                 _preferencesWindow.Show();
-            }
         }
 
         private void SongChanged(MusicResource resource)
         {
             if (_currentMusicEntry != null && GodotObject.IsInstanceValid(_currentMusicEntry))
-            {
                 _currentMusicEntry.ChangeLabels(false);
-            }
             _currentMusicEntry = FindMusicEntry(resource);
-            if (_currentMusicEntry != null)
-            {
-                _currentMusicEntry.ChangeLabels(true);
-            }
+            _currentMusicEntry?.ChangeLabels(true);
             _durationSlider.MaxValue = Player.Stream.GetLength();
             var totalSeconds = ((int)(Player.Stream.GetLength()));
             var seconds = (totalSeconds % 60);
@@ -225,7 +212,7 @@ public partial class UiManager : Node
             var notification = _notificationScene.Instantiate() as Notification;
             _notificationContainer.AddChild(notification);
             _notificationContainer.MoveChild(notification,0);
-            notification.SetParams(type,message,duration);
+            notification?.SetParams(type,message,duration);
         }
         public override void _Input(InputEvent @event)
         {
@@ -248,18 +235,13 @@ public partial class UiManager : Node
                 Input.ParseInputEvent(testEvent);
             }
             if (Input.IsActionPressed("VolumeUp"))
-            {
                 _volumeSlider.Value += 2.0*_volumeSlider.Step;
-            }
             if (Input.IsActionPressed("VolumeDown"))
-            {
                 _volumeSlider.Value -= 2.0*_volumeSlider.Step;
-            }
 
             if (Input.IsActionJustPressed("PlayPause"))
             {
-                if (Player.Stream == null)
-                    return;
+                if (Player.Stream == null) return;
                 if (Player.IsPlaying())
                 {
                     Player.StreamPaused = true;

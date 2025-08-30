@@ -34,7 +34,7 @@ public partial class AudioManager : Node
     private Texture2D _noShuffleButtonTexture;
     
     private AudioStreamPlayer _player;
-    private List<MusicResource> _queue = new();
+    private readonly List<MusicResource>  _queue = new();
     private bool _shuffleToggle;
     private MusicResource _nextSong;
     private MusicResource _currentSong;
@@ -119,12 +119,10 @@ public partial class AudioManager : Node
     // connected to Player.Finished(), can also be triggered by the skip ahead button
     private void PlayNextSong()
     {
-        if(_nextSong != null)
-        {
-            SongChanged(_nextSong);
-            _queueIndex = _queue.IndexOf(_nextSong);
-            SetNextSong();
-        }
+        if (_nextSong == null) return;
+        SongChanged(_nextSong);
+        _queueIndex = _queue.IndexOf(_nextSong);
+        SetNextSong();
     }
     
     //load song, tell UI to display the song info via signal, set next song
