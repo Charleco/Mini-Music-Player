@@ -1,7 +1,7 @@
 using Godot;
 using System;
 using static SignalBus;
-public partial class MusicEntry : HBoxContainer
+public partial class MusicEntry : BoxContainer
 {
     public MusicResource MusicResource { get; set; }
     private Label _nameLabel;

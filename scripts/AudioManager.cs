@@ -151,6 +151,11 @@ public partial class AudioManager : Node
     private static AudioStreamMP3 LoadMp3(string path)
     {
         using var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
+        if (file == null)
+        {
+            GD.PushError($"Could not open file {path}");
+            return null;
+        }
         var sound = new AudioStreamMP3();
         sound.Data = file.GetBuffer((long)file.GetLength());
         return sound;
@@ -159,6 +164,11 @@ public partial class AudioManager : Node
     private static AudioStreamWav LoadWav(string path)
     {
         using var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
+        if (file == null)
+        {
+            GD.PushError($"Could not open file {path}");
+            return null;
+        }
         var sound = new AudioStreamWav();
         sound.Data = file.GetBuffer((long)file.GetLength());
         return sound;
@@ -167,6 +177,11 @@ public partial class AudioManager : Node
     private static AudioStreamOggVorbis LoadOggVorbis(string path)
     {
         using var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
+        if (file == null)
+        {
+            GD.PushError($"Could not open file {path}");
+            return null;
+        }
         var sound = AudioStreamOggVorbis.LoadFromFile(path);
         return sound;
     }

@@ -62,6 +62,16 @@ texture = ExtResource("3_ytk8i")
 expand_mode = 3
 stretch_mode = 5
 
+[node name="UiAnimationComponent2" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer/TextureRect" instance=ExtResource("5_7ovxv")]
+Trigger = 7
+PropertyTween = 1
+TweenEaseType = 1
+_tweenDuration = 0.05
+_reverseAnim = true
+_reverseTweenDuration = 0.05
+_scaleProp = Vector2(1.1, 1.1)
+_minimumSizeProp = Vector2(33, 33)
+
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Preferences"
