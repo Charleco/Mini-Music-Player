@@ -8,15 +8,24 @@ public partial class PreferencesMenu : Window
     private LineEdit _defaultDirectory;
     private Vector2 _visibleMousePosition;
     private ConfigFile _configFile;
+    private PanelContainer _rootContainer;
     public override void _Ready()
     {
         VisibilityChanged += SetPosition;
+        _rootContainer = GetNode<PanelContainer>("PanelContainer");
         LoadPreferences();
     }
 
     private void ExitButtonPressed()
     {
         Visible = false;
+        var time = GetTree().CreateTimer(0.2f);
+        time.Timeout += SetScaleZero;
+    }
+
+    private void SetScaleZero()
+    {
+        _rootContainer.SetScale(new Vector2I(0, 0));
     }
 
     private void LoadPreferences()
