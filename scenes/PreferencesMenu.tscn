@@ -29,6 +29,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1e-05, 1e-05)
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_type_variation = &"BackgroundPanel"
@@ -311,6 +312,13 @@ _tweenDuration = 0.05
 _reverseAnim = true
 _reverseTweenDuration = 0.05
 _scaleProp = Vector2(1.2, 1.2)
+
+[node name="UiAnimationComponent" parent="PanelContainer" instance=ExtResource("5_7ovxv")]
+Trigger = 2
+PropertyTween = 1
+TweenEaseType = 2
+_tweenDuration = 0.1
+_scaleProp = Vector2(1, 1)
 
 [node name="FileDialog" type="FileDialog" parent="."]
 title = "Open a Directory"
