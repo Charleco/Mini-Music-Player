@@ -8,6 +8,8 @@ public partial class PreferencesMenu : Window
     private LineEdit _defaultDirectory;
     [Export]
     private OptionButton _scaleButton;
+    [Export]
+    private OptionButton _sortingButton;
     private Vector2 _visibleMousePosition;
     private ConfigFile _configFile;
     private PanelContainer _rootContainer;
@@ -42,7 +44,9 @@ public partial class PreferencesMenu : Window
         Instance.FirstDirectoryPath = (string)_configFile.GetValue("Preferences", "DefaultDirectory","C:/");
         _defaultDirectory.Text = (string)_configFile.GetValue("Preferences", "DefaultDirectory", "C:/");
         _defaultDirectory.TooltipText = _defaultDirectory.Text;
-        Instance.MusicListAlphabeticalSort = (bool) _configFile.GetValue("Preferences", "DefaultSort", false);
+        var musicSort = (bool)_configFile.GetValue("Preferences", "DefaultSort", false);
+        Instance.MusicListAlphabeticalSort = musicSort;
+        _sortingButton.Selected = musicSort ? 0 : 1;
     }
     private void SetPosition()
     {
