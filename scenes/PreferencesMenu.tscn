@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://ck2t2yg36by4e" path="res://assets/icons/DirectoryIcon.png" id="4_rfvy8"]
 [ext_resource type="PackedScene" uid="uid://cetghkr106g0u" path="res://scenes/UiAnimationComponent.tscn" id="5_7ovxv"]
 
-[node name="PreferencesMenu" type="Window" node_paths=PackedStringArray("_defaultDirectory", "_scaleButton")]
+[node name="PreferencesMenu" type="Window" node_paths=PackedStringArray("_defaultDirectory", "_scaleButton", "_sortingButton")]
 transparent_bg = true
 canvas_item_default_texture_filter = 0
 position = Vector2i(0, 36)
@@ -22,6 +22,7 @@ theme = ExtResource("1_3w5lx")
 script = ExtResource("2_i2olb")
 _defaultDirectory = NodePath("PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/DefaultDirHBoxContainer/HBoxContainer/LineEdit")
 _scaleButton = NodePath("PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/ScaleHBoxContainer/OptionButton")
+_sortingButton = NodePath("PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/MusicSortingHBoxContainer/OptionButton")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 texture_filter = 1
@@ -30,6 +31,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1e-05, 1e-05)
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_type_variation = &"BackgroundPanel"
@@ -75,7 +77,7 @@ _minimumSizeProp = Vector2(33, 33)
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer"]
 layout_mode = 2
-text = "Preferences PanelCont scale = 0 cmt"
+text = "Preferences"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
@@ -149,6 +151,7 @@ text = "Scale:"
 [node name="OptionButton" type="OptionButton" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/ScaleHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 0
 item_count = 3
 popup/item_0/text = "x1"
 popup/item_0/id = 0
@@ -156,6 +159,15 @@ popup/item_1/text = "x1.5"
 popup/item_1/id = 1
 popup/item_2/text = "x2"
 popup/item_2/id = 2
+
+[node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/ScaleHBoxContainer/OptionButton" instance=ExtResource("5_7ovxv")]
+Trigger = 5
+PropertyTween = 1
+TweenEaseType = 1
+_tweenDuration = 0.05
+_reverseAnim = true
+_reverseTweenDuration = 0.05
+_scaleProp = Vector2(1.1, 1.1)
 
 [node name="ThemeHBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -169,10 +181,20 @@ text = "Theme:"
 [node name="OptionButton" type="OptionButton" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/ThemeHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 0
 selected = 0
 item_count = 1
 popup/item_0/text = "Default"
 popup/item_0/id = 0
+
+[node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/ThemeHBoxContainer/OptionButton" instance=ExtResource("5_7ovxv")]
+Trigger = 5
+PropertyTween = 1
+TweenEaseType = 1
+_tweenDuration = 0.05
+_reverseAnim = true
+_reverseTweenDuration = 0.05
+_scaleProp = Vector2(1.1, 1.1)
 
 [node name="FilesPanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -246,38 +268,25 @@ size_flags_horizontal = 3
 layout_mode = 2
 text = "Music Sorting:"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/MusicSortingHBoxContainer"]
+[node name="OptionButton" type="OptionButton" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/MusicSortingHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-alignment = 2
-
-[node name="Button" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/MusicSortingHBoxContainer/HBoxContainer"]
-layout_mode = 2
 focus_mode = 0
-text = "Alphabetical"
+selected = 1
+item_count = 2
+popup/item_0/text = "Alphabetical"
+popup/item_0/id = 0
+popup/item_1/text = "Track Number"
+popup/item_1/id = 1
 
-[node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/MusicSortingHBoxContainer/HBoxContainer/Button" instance=ExtResource("5_7ovxv")]
+[node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/MusicSortingHBoxContainer/OptionButton" instance=ExtResource("5_7ovxv")]
 Trigger = 5
 PropertyTween = 1
 TweenEaseType = 1
 _tweenDuration = 0.05
 _reverseAnim = true
 _reverseTweenDuration = 0.05
-_scaleProp = Vector2(1.1, 1.1)
-
-[node name="Button2" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/MusicSortingHBoxContainer/HBoxContainer"]
-layout_mode = 2
-focus_mode = 0
-text = "Track Number"
-
-[node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/MusicSortingHBoxContainer/HBoxContainer/Button2" instance=ExtResource("5_7ovxv")]
-Trigger = 5
-PropertyTween = 1
-TweenEaseType = 1
-_tweenDuration = 0.05
-_reverseAnim = true
-_reverseTweenDuration = 0.05
-_scaleProp = Vector2(1.1, 1.1)
+_scaleProp = Vector2(1.2, 1.2)
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
@@ -351,8 +360,7 @@ use_native_dialog = true
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2/ExitButton" to="." method="ExitButtonPressed"]
 [connection signal="item_selected" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/ScaleHBoxContainer/OptionButton" to="." method="SetResolution"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/DefaultDirHBoxContainer/HBoxContainer/DefaultDirectoryButton" to="FileDialog" method="set_visible" binds= [true]]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/MusicSortingHBoxContainer/HBoxContainer/Button" to="." method="SortingButtonPressed" binds= [0]]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/MusicSortingHBoxContainer/HBoxContainer/Button2" to="." method="SortingButtonPressed" binds= [1]]
+[connection signal="item_selected" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/MusicSortingHBoxContainer/OptionButton" to="." method="SortingButtonPressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer5/Button2" to="." method="SavePreferences"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer5/Button" to="." method="ExitButtonPressed"]
 [connection signal="dir_selected" from="FileDialog" to="." method="DirectoryLineEditChanged"]
