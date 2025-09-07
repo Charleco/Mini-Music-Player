@@ -6,6 +6,8 @@ public partial class PreferencesMenu : Window
 {
     [Export]
     private LineEdit _defaultDirectory;
+    [Export]
+    private OptionButton _scaleButton;
     private Vector2 _visibleMousePosition;
     private ConfigFile _configFile;
     private PanelContainer _rootContainer;
@@ -72,21 +74,22 @@ public partial class PreferencesMenu : Window
     private void SetResolution(int scale)
     {
         _configFile.SetValue("Preferences", "Scale", scale);
+        _scaleButton.Selected = scale;
         switch (scale)
         {
-            case 1:
+            case 0:
                 DisplayServer.WindowSetSize(new Vector2I(600, 400), 0);
                 GetTree().GetRoot().ContentScaleFactor = 1.0f;
                 ContentScaleFactor = 1.0f;
                 Size = new Vector2I(400, 300);
                 break;
-            case 2:
+            case 1:
                 DisplayServer.WindowSetSize(new Vector2I(900, 600), 0);
                 Size = new Vector2I(600, 450);
                 ContentScaleFactor = 1.5f;
                 GetTree().GetRoot().ContentScaleFactor = 1.5f;
                 break;
-            case 3:
+            case 2:
                 DisplayServer.WindowSetSize(new Vector2I(1200, 800), 0);
                 Size = new Vector2I(800, 600);
                 ContentScaleFactor = 2.0f;
