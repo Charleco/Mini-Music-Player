@@ -17,10 +17,17 @@ public partial class PreferencesMenu : Window
     private PanelContainer _rootContainer;
     public override void _Ready()
     {
-        VisibilityChanged += SetPosition;
+        VisibilityChanged += OnVisible;
         _rootContainer = GetNode<PanelContainer>("PanelContainer");
         SetScaleZero();
         LoadPreferences();
+    }
+
+    private void OnVisible()
+    {
+        if (!Visible) return;
+        SetPosition();
+        SetupAudioDevice();
     }
 
     private void ExitButtonPressed()

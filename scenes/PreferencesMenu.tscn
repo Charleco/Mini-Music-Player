@@ -397,7 +397,7 @@ use_native_dialog = true
 [connection signal="item_selected" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/ScaleHBoxContainer/OptionButton" to="." method="SetResolution"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/DefaultDirHBoxContainer/HBoxContainer/DefaultDirectoryButton" to="FileDialog" method="set_visible" binds= [true]]
 [connection signal="item_selected" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MusicSortingHBoxContainer/OptionButton" to="." method="SortingButtonPressed"]
-[connection signal="item_selected" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/AudioOutputHBoxContainer/OptionButton" to="." method="SetResolution"]
+[connection signal="item_selected" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/AudioOutputHBoxContainer/OptionButton" to="." method="AudioOutputSelected"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/SaveCloseHBoxContainer/Button2" to="." method="SavePreferences"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/SaveCloseHBoxContainer/Button" to="." method="ExitButtonPressed"]
 [connection signal="dir_selected" from="FileDialog" to="." method="DirectoryLineEditChanged"]
