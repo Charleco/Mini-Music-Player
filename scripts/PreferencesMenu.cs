@@ -19,6 +19,7 @@ public partial class PreferencesMenu : Window
     {
         VisibilityChanged += SetPosition;
         _rootContainer = GetNode<PanelContainer>("PanelContainer");
+        SetScaleZero();
         LoadPreferences();
     }
 
@@ -42,7 +43,7 @@ public partial class PreferencesMenu : Window
         {
             return;
         }
-        SetResolution((int)_configFile.GetValue("Preferences", "Scale", 1));
+        SetResolution((int)_configFile.GetValue("Preferences", "Scale", 0));
         Instance.FirstDirectoryPath = (string)_configFile.GetValue("Preferences", "DefaultDirectory","C:/");
         _defaultDirectory.Text = (string)_configFile.GetValue("Preferences", "DefaultDirectory", "C:/");
         _defaultDirectory.TooltipText = _defaultDirectory.Text;
@@ -81,7 +82,7 @@ public partial class PreferencesMenu : Window
     private void SetResolution(int scale)
     {
         _configFile.SetValue("Preferences", "Scale", scale);
-        _scaleButton.Selected = scale;
+        _scaleButton.Select(scale);
         switch (scale)
         {
             case 0:
