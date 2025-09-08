@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://ck2t2yg36by4e" path="res://assets/icons/DirectoryIcon.png" id="4_rfvy8"]
 [ext_resource type="PackedScene" uid="uid://cetghkr106g0u" path="res://scenes/UiAnimationComponent.tscn" id="5_7ovxv"]
 
-[node name="PreferencesMenu" type="Window" node_paths=PackedStringArray("_defaultDirectory", "_scaleButton", "_sortingButton")]
+[node name="PreferencesMenu" type="Window" node_paths=PackedStringArray("_defaultDirectory", "_scaleButton", "_sortingButton", "_audioOutputButton")]
 transparent_bg = true
 canvas_item_default_texture_filter = 0
 position = Vector2i(0, 36)
@@ -20,9 +20,10 @@ popup_window = true
 content_scale_aspect = 1
 theme = ExtResource("1_3w5lx")
 script = ExtResource("2_i2olb")
-_defaultDirectory = NodePath("PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/DefaultDirHBoxContainer/HBoxContainer/LineEdit")
-_scaleButton = NodePath("PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/ScaleHBoxContainer/OptionButton")
-_sortingButton = NodePath("PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/MusicSortingHBoxContainer/OptionButton")
+_defaultDirectory = NodePath("PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/DefaultDirHBoxContainer/HBoxContainer/LineEdit")
+_scaleButton = NodePath("PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/ScaleHBoxContainer/OptionButton")
+_sortingButton = NodePath("PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MusicSortingHBoxContainer/OptionButton")
+_audioOutputButton = NodePath("PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/AudioOutputHBoxContainer/OptionButton")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 texture_filter = 1
@@ -31,7 +32,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1e-05, 1e-05)
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_type_variation = &"BackgroundPanel"
@@ -122,33 +122,37 @@ layout_mode = 2
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="AppearancePanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
+[node name="AppearancePanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"BackgroundPanel"
 
-[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/AppearancePanelContainer"]
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/AppearancePanelContainer"]
 layout_mode = 2
 text = "Appearance"
 vertical_alignment = 1
 
-[node name="ScaleHBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
+[node name="ScaleHBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 tooltip_text = "Application scale"
 
-[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/ScaleHBoxContainer"]
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/ScaleHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Scale:"
 
-[node name="OptionButton" type="OptionButton" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/ScaleHBoxContainer"]
+[node name="OptionButton" type="OptionButton" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/ScaleHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -160,7 +164,7 @@ popup/item_1/id = 1
 popup/item_2/text = "x2"
 popup/item_2/id = 2
 
-[node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/ScaleHBoxContainer/OptionButton" instance=ExtResource("5_7ovxv")]
+[node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/ScaleHBoxContainer/OptionButton" instance=ExtResource("5_7ovxv")]
 Trigger = 5
 PropertyTween = 1
 TweenEaseType = 1
@@ -169,16 +173,16 @@ _reverseAnim = true
 _reverseTweenDuration = 0.05
 _scaleProp = Vector2(1.1, 1.1)
 
-[node name="ThemeHBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
+[node name="ThemeHBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 tooltip_text = "Application scale"
 
-[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/ThemeHBoxContainer"]
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/ThemeHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Theme:"
 
-[node name="OptionButton" type="OptionButton" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/ThemeHBoxContainer"]
+[node name="OptionButton" type="OptionButton" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/ThemeHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -187,7 +191,7 @@ item_count = 1
 popup/item_0/text = "Default"
 popup/item_0/id = 0
 
-[node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/ThemeHBoxContainer/OptionButton" instance=ExtResource("5_7ovxv")]
+[node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/ThemeHBoxContainer/OptionButton" instance=ExtResource("5_7ovxv")]
 Trigger = 5
 PropertyTween = 1
 TweenEaseType = 1
@@ -196,33 +200,33 @@ _reverseAnim = true
 _reverseTweenDuration = 0.05
 _scaleProp = Vector2(1.1, 1.1)
 
-[node name="FilesPanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
+[node name="FilesPanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"BackgroundPanel"
 
-[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/FilesPanelContainer"]
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/FilesPanelContainer"]
 layout_mode = 2
 text = "Files"
 vertical_alignment = 1
 
-[node name="DefaultDirHBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
+[node name="DefaultDirHBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 tooltip_text = "Default directory shown on application launch"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/DefaultDirHBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/DefaultDirHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/DefaultDirHBoxContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/DefaultDirHBoxContainer/HBoxContainer2"]
 layout_mode = 2
 text = "Default Directory:"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/DefaultDirHBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/DefaultDirHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 
-[node name="DefaultDirectoryButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/DefaultDirHBoxContainer/HBoxContainer"]
+[node name="DefaultDirectoryButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/DefaultDirHBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 focus_mode = 0
@@ -231,7 +235,7 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
-[node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/DefaultDirHBoxContainer/HBoxContainer/DefaultDirectoryButton" instance=ExtResource("5_7ovxv")]
+[node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/DefaultDirHBoxContainer/HBoxContainer/DefaultDirectoryButton" instance=ExtResource("5_7ovxv")]
 Trigger = 5
 PropertyTween = 1
 TweenEaseType = 1
@@ -240,7 +244,7 @@ _reverseAnim = true
 _reverseTweenDuration = 0.05
 _scaleProp = Vector2(1.2, 1.2)
 
-[node name="UiAnimationComponent2" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/DefaultDirHBoxContainer/HBoxContainer/DefaultDirectoryButton" instance=ExtResource("5_7ovxv")]
+[node name="UiAnimationComponent2" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/DefaultDirHBoxContainer/HBoxContainer/DefaultDirectoryButton" instance=ExtResource("5_7ovxv")]
 Trigger = 7
 PropertyTween = 1
 TweenEaseType = 1
@@ -250,25 +254,25 @@ _reverseTweenDuration = 0.05
 _scaleProp = Vector2(1.1, 1.1)
 _minimumSizeProp = Vector2(33, 33)
 
-[node name="LineEdit" type="LineEdit" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/DefaultDirHBoxContainer/HBoxContainer"]
+[node name="LineEdit" type="LineEdit" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/DefaultDirHBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
 editable = false
 
-[node name="MusicSortingHBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
+[node name="MusicSortingHBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 tooltip_text = "Takes effect upon next loaded directory"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/MusicSortingHBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MusicSortingHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/MusicSortingHBoxContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MusicSortingHBoxContainer/HBoxContainer2"]
 layout_mode = 2
 text = "Music Sorting:"
 
-[node name="OptionButton" type="OptionButton" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/MusicSortingHBoxContainer"]
+[node name="OptionButton" type="OptionButton" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MusicSortingHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -279,7 +283,7 @@ popup/item_0/id = 0
 popup/item_1/text = "Track Number"
 popup/item_1/id = 1
 
-[node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/MusicSortingHBoxContainer/OptionButton" instance=ExtResource("5_7ovxv")]
+[node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MusicSortingHBoxContainer/OptionButton" instance=ExtResource("5_7ovxv")]
 Trigger = 5
 PropertyTween = 1
 TweenEaseType = 1
@@ -288,19 +292,51 @@ _reverseAnim = true
 _reverseTweenDuration = 0.05
 _scaleProp = Vector2(1.2, 1.2)
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
+[node name="AudioPanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
+theme_type_variation = &"BackgroundPanel"
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/AudioPanelContainer"]
+layout_mode = 2
+text = "Audio"
+vertical_alignment = 1
+
+[node name="AudioOutputHBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "Audio Output Device"
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/AudioOutputHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Output Device:"
+
+[node name="OptionButton" type="OptionButton" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/AudioOutputHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+fit_to_longest_item = false
+
+[node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/AudioOutputHBoxContainer/OptionButton" instance=ExtResource("5_7ovxv")]
+Trigger = 5
+PropertyTween = 1
+TweenEaseType = 1
+_tweenDuration = 0.05
+_reverseAnim = true
+_reverseTweenDuration = 0.05
+_scaleProp = Vector2(1.1, 1.1)
+
+[node name="SaveCloseHBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
 alignment = 1
 
-[node name="Button2" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer5"]
+[node name="Button2" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/SaveCloseHBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 tooltip_text = "Save and close"
 focus_mode = 0
 text = "save"
 
-[node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer5/Button2" instance=ExtResource("5_7ovxv")]
+[node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/SaveCloseHBoxContainer/Button2" instance=ExtResource("5_7ovxv")]
 Trigger = 5
 PropertyTween = 1
 TweenEaseType = 1
@@ -309,7 +345,7 @@ _reverseAnim = true
 _reverseTweenDuration = 0.05
 _scaleProp = Vector2(1.2, 1.2)
 
-[node name="UiAnimationComponent2" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer5/Button2" instance=ExtResource("5_7ovxv")]
+[node name="UiAnimationComponent2" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/SaveCloseHBoxContainer/Button2" instance=ExtResource("5_7ovxv")]
 Trigger = 7
 PropertyTween = 1
 TweenEaseType = 1
@@ -318,14 +354,14 @@ _reverseAnim = true
 _reverseTweenDuration = 0.05
 _scaleProp = Vector2(1.1, 1.1)
 
-[node name="Button" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer5"]
+[node name="Button" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/SaveCloseHBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 8
 tooltip_text = "Close without saving"
 focus_mode = 0
 text = "close"
 
-[node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer5/Button" instance=ExtResource("5_7ovxv")]
+[node name="UiAnimationComponent" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/SaveCloseHBoxContainer/Button" instance=ExtResource("5_7ovxv")]
 Trigger = 5
 PropertyTween = 1
 TweenEaseType = 1
@@ -334,7 +370,7 @@ _reverseAnim = true
 _reverseTweenDuration = 0.05
 _scaleProp = Vector2(1.2, 1.2)
 
-[node name="UiAnimationComponent2" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer5/Button" instance=ExtResource("5_7ovxv")]
+[node name="UiAnimationComponent2" parent="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/SaveCloseHBoxContainer/Button" instance=ExtResource("5_7ovxv")]
 Trigger = 7
 PropertyTween = 1
 TweenEaseType = 1
@@ -358,10 +394,11 @@ access = 2
 use_native_dialog = true
 
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HeaderPanelContainer/MarginContainer/HBoxContainer/HBoxContainer2/ExitButton" to="." method="ExitButtonPressed"]
-[connection signal="item_selected" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/ScaleHBoxContainer/OptionButton" to="." method="SetResolution"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/DefaultDirHBoxContainer/HBoxContainer/DefaultDirectoryButton" to="FileDialog" method="set_visible" binds= [true]]
-[connection signal="item_selected" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/MusicSortingHBoxContainer/OptionButton" to="." method="SortingButtonPressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer5/Button2" to="." method="SavePreferences"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer5/Button" to="." method="ExitButtonPressed"]
+[connection signal="item_selected" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/ScaleHBoxContainer/OptionButton" to="." method="SetResolution"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/DefaultDirHBoxContainer/HBoxContainer/DefaultDirectoryButton" to="FileDialog" method="set_visible" binds= [true]]
+[connection signal="item_selected" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/MusicSortingHBoxContainer/OptionButton" to="." method="SortingButtonPressed"]
+[connection signal="item_selected" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/AudioOutputHBoxContainer/OptionButton" to="." method="SetResolution"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/SaveCloseHBoxContainer/Button2" to="." method="SavePreferences"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/SaveCloseHBoxContainer/Button" to="." method="ExitButtonPressed"]
 [connection signal="dir_selected" from="FileDialog" to="." method="DirectoryLineEditChanged"]
-[connection signal="dir_selected" from="FileDialog" to="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/DefaultDirHBoxContainer/HBoxContainer/LineEdit" method="set_text"]
+[connection signal="dir_selected" from="FileDialog" to="PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/DefaultDirHBoxContainer/HBoxContainer/LineEdit" method="set_text"]

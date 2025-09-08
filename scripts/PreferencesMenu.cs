@@ -10,6 +10,8 @@ public partial class PreferencesMenu : Window
     private OptionButton _scaleButton;
     [Export]
     private OptionButton _sortingButton;
+    [Export]
+    private OptionButton _audioOutputButton;
     private Vector2 _visibleMousePosition;
     private ConfigFile _configFile;
     private PanelContainer _rootContainer;
@@ -47,6 +49,7 @@ public partial class PreferencesMenu : Window
         var musicSort = (bool)_configFile.GetValue("Preferences", "DefaultSort", false);
         Instance.MusicListAlphabeticalSort = musicSort;
         _sortingButton.Selected = musicSort ? 0 : 1;
+        SetupAudioDevice();
     }
     private void SetPosition()
     {
@@ -112,6 +115,31 @@ public partial class PreferencesMenu : Window
     {
         Instance.FirstDirectoryPath = ProjectSettings.GlobalizePath(newText) + "/";
         _configFile.SetValue("Preferences", "DefaultDirectory", Instance.FirstDirectoryPath);
+    }
+
+    private void SetupAudioDevice()
+    {
+        string[] deviceList = AudioServer.GetOutputDeviceList();
+        for(var i = 0; i<deviceList.Length-1; i++)
+        {
+            _audioOutputButton.AddItem(deviceList[i]);
+            if (deviceList[i] == (string)_configFile.GetValue("Audio", "OutputDevice", "Default"))
+            {
+                _audioOutputButton.Select(i);
+            }
+        }
+        if (_audioOutputButton.Selected == -1) // if saved audio device doesnt exist
+        {
+            _audioOutputButton.Select(0); // select default
+        }
+        _configFile.SetValue("Audio", "OutputDevice", _audioOutputButton.GetItemText(_audioOutputButton.Selected));
+    }
+
+    private void AudioOutputSelected(int index)
+    {
+        var deviceName = _audioOutputButton.GetItemText(index);
+        AudioServer.SetOutputDevice(deviceName);
+        _configFile.SetValue("Audio", "OutputDevice", deviceName);
     }
 
     private void SavePreferences()
